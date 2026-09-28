@@ -164,6 +164,12 @@
   .dyn-subtitle{font-size:13px; color:var(--ink-dim); margin-bottom:10px; font-style:normal;}
   .dyn-content{font-size:16.5px; color:var(--ink); font-weight:600;}
 
+  /* Contacto */
+  .contact-box{text-align:center; padding:36px 30px;}
+  .linkedin-link{display:inline-flex; align-items:center; gap:12px; padding:12px 22px; border:1px solid var(--panel-border); border-radius:2px; background:var(--bg); color:var(--ink); font-weight:700; font-size:15px; transition:background 0.2s;}
+  .linkedin-link:hover{background:var(--rock1); text-decoration:none;}
+  .linkedin-link img{display:block; width:28px; height:28px; object-fit:contain;}
+
   ::selection{background:var(--flare); color:var(--ink);}
 </style>
 </head>
@@ -180,6 +186,7 @@
       <a href="#infraestructura">Infraestructura</a>
       <a href="#noticias">Noticias</a>
       <a href="#suscripcion">Suscribirme</a>
+      <a href="#contacto">Contacto</a>
     </nav>
     <div class="updated"><span class="dot">●</span> Datos al 25 sep 2026</div>
   </div>
@@ -635,6 +642,17 @@
         <button type="submit" id="btnSubmit" style="padding:12px 22px; border-radius:2px; border:none; background:var(--flare); color:var(--ink); font-family:'Nunito Sans', sans-serif; font-weight:700; font-size:15px; cursor:pointer;">Suscribirme</button>
       </form>
       <p id="mensajeExito" style="font-size:15px; color:var(--good); font-weight:600; margin-top:14px; display:none;"></p>
+    </div>
+  </section>
+
+  <section id="contacto" style="padding-top:0;">
+    <div class="panel contact-box">
+      <h3 style="font-size:22px; margin-bottom:10px;">Contacto</h3>
+      <p class="section-intro" style="margin:0 auto 20px; text-align:center;">¿Querés comentar algo, sugerir un dato o ponerte en contacto? Escribime por mi LinkedIn personal.</p>
+      <a class="linkedin-link" href="https://www.linkedin.com/in/juan-de-la-cruz-schiappacasse-a00aa6256/" target="_blank" rel="noopener">
+        <img src="linkedin.png" alt="Ícono de LinkedIn" width="28" height="28">
+        <span>Mi LinkedIn — Juan de la Cruz Schiappacasse</span>
+      </a>
     </div>
   </section>
 
