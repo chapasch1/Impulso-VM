@@ -210,6 +210,8 @@
   .news h3 a{text-decoration:none;}
   .news h3 a:hover{text-decoration:underline; text-decoration-color:var(--flare); text-decoration-thickness:2px;}
   .news p{margin:6px 0 0; color:var(--ink-2); font-size:15.5px;}
+  .news .read-btn{display:inline-block; margin-top:12px; padding:7px 14px; font-size:14px; font-weight:600; color:var(--ink); background:var(--flare); border-radius:2px; text-decoration:none; transition:background .15s;}
+  .news .read-btn:hover{background:var(--flare-dim);}
   .news .src{font-size:12.5px; color:var(--ink-3); margin-top:6px; text-transform:uppercase; letter-spacing:0.05em;}
 
   /* ---------- Termómetro ---------- */
@@ -246,9 +248,19 @@
   .form-msg.err{color:#B3261E;}
   .fine{font-size:12.5px; color:var(--ink-3); flex-basis:100%; margin:2px 0 0;}
 
+  /* ---------- Contacto ---------- */
+  .contact{text-align:center; background:#FFFFFF; border:1px solid var(--rule); padding:40px 24px; margin-bottom:48px;}
+  .contact h2{font-family:var(--serif); font-weight:500; font-size:30px; color:var(--sand); margin:0;}
+  .contact p{max-width:620px; margin:10px auto 24px; color:var(--ink-2); font-size:16.5px;}
+  .linkedin{display:inline-flex; align-items:center; gap:14px; padding:12px 22px; background:var(--paper); border:1px solid var(--rule); border-radius:2px; color:var(--ink); font-weight:600; font-size:16px; text-decoration:none; transition:border-color .15s, background .15s;}
+  .linkedin:hover{border-color:var(--flare); background:var(--rock1);}
+  .linkedin img{width:30px; height:30px; flex:none; border-radius:3px;}
+  @media (max-width:480px){ .linkedin{font-size:15px; padding:12px 16px; text-align:left;} }
+
   /* ---------- Pie ---------- */
   footer{padding:36px 0 48px; font-size:14px; color:var(--ink-2);}
   footer .cols{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);}
+  @media (max-width:860px){ footer .cols{grid-template-columns:1fr;} }
   footer .logo{font-family:var(--serif); font-weight:600; font-size:24px; color:var(--ink); margin:0 0 6px;}
   footer .logo span{color:var(--flare);}
   footer p{margin:0 0 10px; max-width:560px;}
@@ -291,6 +303,7 @@
       <li><a href="#infraestructura">Infraestructura</a></li>
       <li><a href="#noticias">La semana</a></li>
       <li><a href="#termometro">Termómetro</a></li>
+      <li><a href="#contacto">Contacto</a></li>
     </ul>
     <a class="cta" href="#suscripcion">Suscribirme</a>
   </div>
@@ -560,6 +573,7 @@
           <h3><a href="https://www.bloomberglinea.com/latinoamerica/argentina/vaca-muerta-busca-nuevo-salto-exportador-argentina-y-eeuu-preparan-acuerdo-por-mas-de-us6000-millones/" target="_blank" rel="noopener">Argentina y EE.UU. sellan un acuerdo de hasta USD 7.000 millones para infraestructura y energía</a></h3>
           <p>El Exim Bank ofreció, de forma indicativa, hasta USD 6.000 millones para Argentina LNG. Se firmó en Nueva York junto con el lanzamiento del "Corredor Andes-Atlántico".</p>
           <div class="src">Bloomberg Línea</div>
+          <a class="read-btn" href="https://www.bloomberglinea.com/latinoamerica/argentina/vaca-muerta-busca-nuevo-salto-exportador-argentina-y-eeuu-preparan-acuerdo-por-mas-de-us6000-millones/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
         </div>
       </li>
       <li>
@@ -568,6 +582,7 @@
           <h3><a href="https://cholilaonline.ar/2026/09/ypf-primer-set-fractura-electrica-vaca-muerta.html" target="_blank" rel="noopener">YPF suma el primer set de fractura eléctrica de Vaca Muerta, de la mano de Halliburton</a></h3>
           <p>La petrolera apuesta a ganar productividad con nueva tecnología, dentro de un contrato multianual de servicios de completación con Halliburton.</p>
           <div class="src">Cholila Online</div>
+          <a class="read-btn" href="https://cholilaonline.ar/2026/09/ypf-primer-set-fractura-electrica-vaca-muerta.html" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
         </div>
       </li>
       <li>
@@ -576,6 +591,7 @@
           <h3><a href="https://www.riotimesonline.com/argentina-markets-merval-peso-thursday-september-24-2026/" target="_blank" rel="noopener">El riesgo país sube a 566 puntos, pero YPF resiste en Wall Street</a></h3>
           <p>Mientras los bancos lideraban las bajas del Merval, las acciones de YPF avanzaron de la mano de las expectativas por el plan de exportación de gas.</p>
           <div class="src">Rio Times</div>
+          <a class="read-btn" href="https://www.riotimesonline.com/argentina-markets-merval-peso-thursday-september-24-2026/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
         </div>
       </li>
       <li>
@@ -584,6 +600,7 @@
           <h3><a href="https://www.infobae.com/economia/2026/09/21/superavit-energetico-record-en-8-meses-la-argentina-ya-supero-lo-que-genero-en-todo-2025/" target="_blank" rel="noopener">El superávit energético de 2026 ya rompió el récord de 2025, y faltan cuatro meses</a></h3>
           <p>Entre enero y agosto la balanza de combustibles y energía acumuló USD 7.834 millones, por encima de los USD 7.815 millones de todo el año pasado.</p>
           <div class="src">Infobae</div>
+          <a class="read-btn" href="https://www.infobae.com/economia/2026/09/21/superavit-energetico-record-en-8-meses-la-argentina-ya-supero-lo-que-genero-en-todo-2025/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
         </div>
       </li>
       <li>
@@ -592,6 +609,7 @@
           <h3><a href="https://www.lanacion.com.ar/economia/el-salto-en-la-exportacion-de-energia-impulso-un-superavit-comercial-de-us2187-millones-en-agosto-nid18092026/" target="_blank" rel="noopener">El INDEC confirma un superávit energético de USD 977 millones en agosto</a></h3>
           <p>La balanza de combustibles y energía explicó, sola, el 44,7% del superávit comercial total del mes.</p>
           <div class="src">La Nación</div>
+          <a class="read-btn" href="https://www.lanacion.com.ar/economia/el-salto-en-la-exportacion-de-energia-impulso-un-superavit-comercial-de-us2187-millones-en-agosto-nid18092026/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
         </div>
       </li>
     </ul>
@@ -644,6 +662,16 @@
         <p id="formMsg" class="form-msg" role="status" aria-live="polite"></p>
       </form>
     </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contact">
+    <h2>Contacto</h2>
+    <p>¿Querés comentar algo, sugerir un dato o ponerte en contacto? Escribime por mi LinkedIn personal.</p>
+    <a class="linkedin" href="https://www.linkedin.com/in/juan-de-la-cruz-schiappacasse-a00aa6256/" target="_blank" rel="noopener">
+      <img src="linkedin.png" alt="" width="30" height="30">
+      <span>Mi LinkedIn · Juan de la Cruz Schiappacasse</span>
+    </a>
   </section>
 
 </main>
