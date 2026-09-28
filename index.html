@@ -832,7 +832,14 @@ if ('IntersectionObserver' in window){
       if (en.isIntersecting){
         links.forEach(a => a.classList.remove('on'));
         const a = byId[en.target.id];
-        if (a){ a.classList.add('on'); a.scrollIntoView({block: 'nearest', inline: 'nearest'}); }
+        if (a){
+          a.classList.add('on');
+          // Solo desplaza el menú de costado; nunca mueve la página.
+          const ul = a.closest('ul');
+          const left = a.offsetLeft - ul.offsetLeft, right = left + a.offsetWidth;
+          if (left < ul.scrollLeft) ul.scrollLeft = left - 8;
+          else if (right > ul.scrollLeft + ul.clientWidth) ul.scrollLeft = right - ul.clientWidth + 8;
+        }
       }
     });
   }, {rootMargin: '-45% 0px -50% 0px'});
