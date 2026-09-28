@@ -14,7 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impulso VM | Vaca Muerta: datos, inversiones y noticias de la semana</title>
 <meta name="description" content="Seguimiento semanal de Vaca Muerta: producción, balanza energética, exportaciones, empresas, infraestructura y las noticias que importan. Se actualiza todos los viernes con datos del INDEC y la Secretaría de Energía.">
-<meta name="theme-color" content="#FAF8F4">
+<meta name="theme-color" content="#FBF6EA">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
 <meta property="og:site_name" content="Impulso VM">
@@ -29,35 +29,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FAF8F4;
-    --paper-2:#F1EDE5;
-    --ink:#1C1B19;
-    --ink-2:#46433D;
-    --ink-3:#77726A;
-    --rule:#DAD4C8;
-    --teal:#16889F;
-    --teal-2:#0D6272;
-    --teal-soft:#BFDDE3;
-    --ochre:#B06A12;
-    --up:#2C7A4B;
+    /* Paleta original de Impulso VM */
+    --paper:#FBF6EA;
+    --paper-2:#F3ECD9;
+    --ink:#332B1E;
+    --ink-2:#5A5042;
+    --ink-3:#74695A;
+    --rule:#E6DCC4;
+    --rock1:#F3ECD9;
+    --rock2:#EAE0C4;
+    --rock3:#BFE3EA;
+    --rock4:#FCE29B;
+    --sand:#C99A3A;
+    --sand-dim:#A9832F;
+    --flare:#F0B429;
+    --flare-dim:#D99A1A;
+    --gas:#4FA8C6;
+    --gas-dim:#3A87A1;
+    --up:#4C9A6A;
+    --down:#B5533C;
     --serif:'Newsreader', Georgia, 'Times New Roman', serif;
     --sans:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
     --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --paper:#141412;
-      --paper-2:#1D1C19;
-      --ink:#ECE8E0;
-      --ink-2:#C4BFB5;
-      --ink-3:#8F8A80;
-      --rule:#34322D;
-      --teal:#4DB6CA;
-      --teal-2:#8AD2DF;
-      --teal-soft:#1F4850;
-      --ochre:#E0A04A;
-      --up:#6BC08C;
-    }
   }
 
   *{box-sizing:border-box;}
@@ -75,8 +68,8 @@
   }
   a{color:inherit; text-decoration-color:var(--rule); text-underline-offset:3px;}
   a:hover{text-decoration-color:currentColor;}
-  a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
-  ::selection{background:var(--teal-soft);}
+  a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--gas); outline-offset:2px;}
+  ::selection{background:var(--flare); color:var(--ink);}
 
   .wrap{max-width:1120px; margin:0 auto; padding:0 20px;}
   .num, .tab{font-variant-numeric:tabular-nums lining-nums;}
@@ -92,7 +85,7 @@
 
   .masthead{padding:26px 0 18px; text-align:center;}
   .masthead .logo{font-family:var(--serif); font-weight:600; font-size:clamp(40px, 7vw, 64px); line-height:1; letter-spacing:-0.02em; margin:0;}
-  .masthead .logo span{color:var(--teal);}
+  .masthead .logo span{color:var(--flare);}
   .masthead .tagline{font-family:var(--serif); font-style:italic; color:var(--ink-2); font-size:17px; margin:10px 0 0;}
 
   nav.sections{position:sticky; top:0; z-index:20; background:var(--paper); border-top:3px solid var(--ink); border-bottom:1px solid var(--rule);}
@@ -101,9 +94,9 @@
   nav.sections ul::-webkit-scrollbar{display:none;}
   nav.sections li a{display:block; padding:12px 10px; font-size:14px; font-weight:500; text-decoration:none; white-space:nowrap; color:var(--ink-2); border-bottom:2px solid transparent; margin-bottom:-1px;}
   nav.sections li a:hover{color:var(--ink); border-bottom-color:var(--ink);}
-  nav.sections li a.on{color:var(--ink); border-bottom-color:var(--teal);}
-  nav.sections .cta{flex:none; font-size:13.5px; font-weight:600; text-decoration:none; padding:7px 12px; background:var(--ink); color:var(--paper); border-radius:3px;}
-  nav.sections .cta:hover{background:var(--teal-2);}
+  nav.sections li a.on{color:var(--ink); border-bottom-color:var(--flare);}
+  nav.sections .cta{flex:none; font-size:13.5px; font-weight:600; text-decoration:none; padding:7px 12px; background:var(--flare); color:var(--ink); border-radius:2px;}
+  nav.sections .cta:hover{background:var(--flare-dim);}
   @media (max-width:560px){ nav.sections .cta{display:none;} }
 
   /* ---------- Portada ---------- */
@@ -115,12 +108,10 @@
     .front .lead-story{padding-right:0; border-right:0; padding-bottom:28px; border-bottom:1px solid var(--rule);}
     .front .figures{padding-left:0; padding-top:22px;}
   }
-  .kicker{font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--teal-2); margin:0 0 10px;}
-  @media (prefers-color-scheme: dark){ .kicker{color:var(--teal);} }
+  .kicker{font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--sand-dim); margin:0 0 10px;}
   .lead-story h1{font-family:var(--serif); font-weight:500; font-size:clamp(30px, 4.4vw, 46px); line-height:1.08; letter-spacing:-0.015em; margin:0;}
   .lead-story .deck{font-family:var(--serif); font-size:20px; line-height:1.45; color:var(--ink-2); margin:16px 0 0; max-width:640px;}
-  .lead-story .more{display:inline-block; margin-top:18px; font-size:14px; font-weight:600; color:var(--teal-2); text-decoration:none;}
-  @media (prefers-color-scheme: dark){ .lead-story .more{color:var(--teal);} }
+  .lead-story .more{display:inline-block; margin-top:18px; font-size:14px; font-weight:600; color:var(--gas-dim); text-decoration:none;}
   .lead-story .more:hover{text-decoration:underline;}
 
   .figures h2{font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-3); margin:0 0 4px;}
@@ -161,7 +152,7 @@
   table.data td.wrap-ok{white-space:normal; text-align:left; font-weight:400; color:var(--ink-2);}
   table.data tr.total th, table.data tr.total td{border-top:1px solid var(--ink); font-weight:600; color:var(--ink);}
   table.data .note{display:block; font-size:12.5px; color:var(--up); font-weight:500;}
-  table.data .tag-new{font-size:11.5px; font-weight:600; color:var(--ochre); margin-left:6px; text-transform:uppercase; letter-spacing:0.04em;}
+  table.data .tag-new{font-size:11.5px; font-weight:600; color:var(--sand-dim); margin-left:6px; text-transform:uppercase; letter-spacing:0.04em;}
 
   .strip{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); border-top:1px solid var(--ink); border-bottom:1px solid var(--rule);}
   .strip > div{padding:16px 18px 18px; border-left:1px solid var(--rule);}
@@ -186,7 +177,8 @@
   .hbars .row span:last-child{font-variant-numeric:tabular-nums; font-weight:600;}
   .hbars .row em{font-style:normal; color:var(--ink-3); font-size:13.5px;}
   .bar{height:8px; background:var(--paper-2);}
-  .bar i{display:block; height:100%; background:var(--teal);}
+  .bar i{display:block; height:100%; background:linear-gradient(90deg, var(--flare-dim), var(--flare));}
+  .progress .bar i{background:linear-gradient(90deg, var(--gas), #7FC3CF);}
   .bar i.muted{background:var(--ink-3); opacity:.45;}
 
   .chips{display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:8px; font-size:14.5px; color:var(--ink-2);}
@@ -216,9 +208,27 @@
   .news time{font-size:13px; color:var(--ink-3); padding-top:4px; font-variant-numeric:tabular-nums;}
   .news h3{font-family:var(--serif); font-weight:500; font-size:21px; line-height:1.25; margin:0;}
   .news h3 a{text-decoration:none;}
-  .news h3 a:hover{text-decoration:underline; text-decoration-color:var(--teal); text-decoration-thickness:2px;}
+  .news h3 a:hover{text-decoration:underline; text-decoration-color:var(--flare); text-decoration-thickness:2px;}
   .news p{margin:6px 0 0; color:var(--ink-2); font-size:15.5px;}
   .news .src{font-size:12.5px; color:var(--ink-3); margin-top:6px; text-transform:uppercase; letter-spacing:0.05em;}
+
+  /* ---------- Termómetro ---------- */
+  .strata{display:flex; height:8px;}
+  .strata span{flex:1;}
+  table.data td.chg{width:92px; font-size:14px;}
+  table.data td.chg.good{color:var(--up);}
+  table.data td.chg.bad{color:var(--down);}
+  table.data td.chg.flat{color:var(--ink-3); font-weight:400;}
+  table.data th small{display:block; font-size:12.5px; color:var(--ink-3);}
+  .reading{margin-top:22px; padding:16px 18px; background:var(--paper-2); border-left:3px solid var(--flare);}
+  .reading p:not(.kicker){margin:0; font-family:var(--serif); font-size:18.5px; line-height:1.45;}
+  .reading .kicker{margin-bottom:6px;}
+  .agenda{list-style:none; margin:0; padding:0; counter-reset:ag; border-top:1px solid var(--rule);}
+  .agenda li{counter-increment:ag; display:grid; grid-template-columns:34px minmax(0,1fr); gap:10px; padding:14px 0; border-bottom:1px solid var(--rule);}
+  .agenda li::before{content:counter(ag); font-family:var(--serif); font-size:26px; line-height:1; color:var(--flare-dim);}
+  .agenda b{display:block; font-weight:600; font-size:15.5px;}
+  .agenda p{margin:3px 0 0; font-size:15px; color:var(--ink-2);}
+  .agenda .when{display:inline-block; margin-top:6px; font-size:12px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:var(--gas-dim);}
 
   /* ---------- Suscripción ---------- */
   .subscribe{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:32px; align-items:center; background:var(--paper-2); padding:32px;}
@@ -228,20 +238,19 @@
   .subscribe form{display:flex; gap:8px; flex-wrap:wrap;}
   .subscribe input[type=email]{flex:1 1 220px; min-width:0; padding:12px 14px; font:inherit; font-size:15px; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:3px;}
   .subscribe input[type=email]:focus{border-color:var(--ink);}
-  .subscribe button{padding:12px 20px; font:inherit; font-size:15px; font-weight:600; color:var(--paper); background:var(--ink); border:0; border-radius:3px; cursor:pointer;}
-  .subscribe button:hover{background:var(--teal-2);}
+  .subscribe button{padding:12px 20px; font:inherit; font-size:15px; font-weight:600; color:var(--ink); background:var(--flare); border:0; border-radius:2px; cursor:pointer;}
+  .subscribe button:hover{background:var(--flare-dim);}
   .subscribe button[disabled]{opacity:.6; cursor:wait;}
   .form-msg{flex-basis:100%; margin:4px 0 0; font-size:14.5px; min-height:1.2em;}
   .form-msg.ok{color:var(--up); font-weight:600;}
   .form-msg.err{color:#B3261E;}
-  @media (prefers-color-scheme: dark){ .form-msg.err{color:#F2A49B;} }
   .fine{font-size:12.5px; color:var(--ink-3); flex-basis:100%; margin:2px 0 0;}
 
   /* ---------- Pie ---------- */
   footer{padding:36px 0 48px; font-size:14px; color:var(--ink-2);}
   footer .cols{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);}
   footer .logo{font-family:var(--serif); font-weight:600; font-size:24px; color:var(--ink); margin:0 0 6px;}
-  footer .logo span{color:var(--teal);}
+  footer .logo span{color:var(--flare);}
   footer p{margin:0 0 10px; max-width:560px;}
   footer h2{font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-3); margin:0 0 8px;}
   footer ul{margin:0; padding:0; list-style:none;}
@@ -281,10 +290,12 @@
       <li><a href="#empresas">Empresas</a></li>
       <li><a href="#infraestructura">Infraestructura</a></li>
       <li><a href="#noticias">La semana</a></li>
+      <li><a href="#termometro">Termómetro</a></li>
     </ul>
     <a class="cta" href="#suscripcion">Suscribirme</a>
   </div>
 </nav>
+<div class="strata" aria-hidden="true"><span style="background:var(--rock1)"></span><span style="background:var(--rock2)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock4)"></span><span style="background:var(--rock2)"></span><span style="background:var(--flare-dim)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock1)"></span></div>
 
 <main id="contenido" class="wrap">
 
@@ -586,6 +597,37 @@
     </ul>
   </section>
 
+  <!-- TERMÓMETRO DEL VIERNES -->
+  <section class="block" id="termometro">
+    <div class="sec-head">
+      <p class="kicker">El termómetro del viernes</p>
+      <h2>Cómo cerró la semana y qué viene</h2>
+      <p>Los precios y las acciones que mueven a Vaca Muerta al cierre del viernes, y los temas que vamos a seguir en las próximas semanas.</p>
+    </div>
+
+    <div class="cols even">
+      <div>
+        <h3 class="sub">Mercado al cierre</h3>
+        <table class="data" id="tabla-termometro"></table>
+        <p class="source">Variación contra el cierre del viernes anterior. En verde, lo que favorece a Vaca Muerta; en rojo, lo que juega en contra.</p>
+        <div class="reading">
+          <p class="kicker">La lectura</p>
+          <p>El riesgo país subió a 566 puntos, pero YPF resistió en Wall Street. El mercado separa a la petrolera del resto de los activos argentinos: pesa más la expectativa por Argentina LNG que el ruido macro.</p>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="sub">Lo que viene</h3>
+        <ol class="agenda">
+          <li><div><b>Argentina LNG y el Exim Bank</b><p>Cómo se instrumenta el financiamiento de hasta USD 6.000 millones y si aparecen señales concretas sobre la decisión final de inversión.</p><span class="when">En seguimiento</span></div></li>
+          <li><div><b>Producción de septiembre</b><p>La Secretaría de Energía publica el dato del mes. La pregunta: ¿se sostiene el récord de 930.500 b/d?</p><span class="when">Octubre</span></div></li>
+          <li><div><b>Balanza comercial de septiembre</b><p>El INDEC dirá cuánto suma septiembre a un superávit energético que ya superó todo 2025.</p><span class="when">Segunda quincena de octubre</span></div></li>
+          <li><div><b>Oleoducto VMOS</b><p>Con la obra al 80%, cualquier novedad sobre el cronograma del primer embarque en Punta Colorada.</p><span class="when">En seguimiento</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
   <!-- SUSCRIPCIÓN -->
   <section class="block" id="suscripcion" style="border-bottom:0;">
     <div class="subscribe">
@@ -606,6 +648,7 @@
 
 </main>
 
+<div class="strata" aria-hidden="true"><span style="background:var(--rock1)"></span><span style="background:var(--rock2)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock4)"></span><span style="background:var(--rock2)"></span><span style="background:var(--flare-dim)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock1)"></span></div>
 <footer>
   <div class="wrap">
     <div class="cols">
@@ -645,7 +688,36 @@ const PRODUCCION_2026 = { // miles de barriles diarios
   vacaMuerta:  [590,  null, null, 616, null, null, 643, 658]
 };
 
+/* Termómetro del viernes. Completá cada semana:
+   valor = cierre del viernes, semana = variación % contra el viernes anterior.
+   buenoSiSube: true si una suba favorece a Vaca Muerta.
+   Las filas con valor null no se muestran. */
+const TERMOMETRO = [
+  {nombre: 'Brent',              detalle: 'USD por barril',     valor: null, semana: null, buenoSiSube: true},
+  {nombre: 'WTI',                detalle: 'USD por barril',     valor: null, semana: null, buenoSiSube: true},
+  {nombre: 'YPF en Nueva York',  detalle: 'USD por ADR',        valor: null, semana: null, buenoSiSube: true},
+  {nombre: 'Vista en Nueva York',detalle: 'USD por ADR',        valor: null, semana: null, buenoSiSube: true},
+  {nombre: 'Riesgo país',        detalle: 'puntos básicos',     valor: 566,  semana: null, buenoSiSube: false}
+];
+
 /* ========================================================= */
+
+function drawTermometro(){
+  const t = document.getElementById('tabla-termometro');
+  const rows = TERMOMETRO.filter(r => r.valor != null);
+  t.innerHTML = '';
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    let cls = 'flat', txt = '—';
+    if (r.semana != null){
+      const sube = r.semana > 0;
+      txt = (r.semana > 0 ? '▲ +' : r.semana < 0 ? '▼ ' : '') + fmt(r.semana) + '%';
+      cls = r.semana === 0 ? 'flat' : (sube === r.buenoSiSube ? 'good' : 'bad');
+    }
+    tr.innerHTML = `<th scope="row">${r.nombre}<small>${r.detalle}</small></th><td>${fmt(r.valor)}</td><td class="chg ${cls}">${txt}</td>`;
+    t.appendChild(tr);
+  });
+}
 
 const NS = 'http://www.w3.org/2000/svg';
 const fmt = n => n.toLocaleString('es-AR', {maximumFractionDigits: 1});
@@ -686,7 +758,7 @@ function barChart(host, values, labels){
   values.forEach((v, i) => {
     const cx = m.l + band * i + band / 2, last = i === values.length - 1;
     svg.appendChild(el('rect', {x: cx - bw / 2, y: y(v), width: bw, height: y(0) - y(v),
-      fill: last ? 'var(--teal-2)' : 'var(--teal)', opacity: last ? 1 : 0.72}));
+      fill: last ? 'var(--flare-dim)' : 'var(--flare)'}));
     svg.appendChild(el('text', {x: cx, y: y(v) - 6, 'text-anchor': 'middle', class: 'val'}, fmt(v)));
     svg.appendChild(el('text', {x: cx, y: H - 6, 'text-anchor': 'middle'}, labels[i]));
   });
@@ -736,11 +808,12 @@ function drawCharts(){
   barChart(document.getElementById('chart-balanza'), SUPERAVIT_2026, MESES.slice(0, nB));
   const nP = Math.max(PRODUCCION_2026.nacional.length, PRODUCCION_2026.vacaMuerta.length);
   lineChart(document.getElementById('chart-produccion'), [
-    {name: 'Total país', values: PRODUCCION_2026.nacional, color: 'var(--ink)'},
-    {name: 'Vaca Muerta', values: PRODUCCION_2026.vacaMuerta, color: 'var(--teal)', labelBelow: true}
+    {name: 'Total país', values: PRODUCCION_2026.nacional, color: 'var(--flare-dim)'},
+    {name: 'Vaca Muerta', values: PRODUCCION_2026.vacaMuerta, color: 'var(--gas)', labelBelow: true}
   ], MESES.slice(0, nP));
 }
 drawCharts();
+drawTermometro();
 let lastW = window.innerWidth;
 window.addEventListener('resize', () => {
   if (window.innerWidth === lastW) return;
