@@ -92,22 +92,27 @@
   nav.sections .wrap{display:flex; align-items:center; gap:4px;}
   nav.sections ul{list-style:none; margin:0; padding:0; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; flex:1;}
   nav.sections ul::-webkit-scrollbar{display:none;}
-  @media (max-width:640px){
-    nav.sections .wrap{padding:4px 10px;}
-    nav.sections ul{flex-wrap:wrap; justify-content:center; overflow:visible; gap:0 2px;}
-    nav.sections li a{padding:4px 7px !important; font-size:13px !important; border-bottom:0 !important; border-radius:2px;}
-    nav.sections li a.on{background:var(--rock4);}
-  }
   nav.sections li a{display:block; padding:12px 10px; font-size:14px; font-weight:500; text-decoration:none; white-space:nowrap; color:var(--ink-2); border-bottom:2px solid transparent; margin-bottom:-1px;}
   nav.sections li a:hover{color:var(--ink); border-bottom-color:var(--ink);}
   nav.sections li a.on{color:var(--ink); border-bottom-color:var(--flare);}
   nav.sections .cta{flex:none; font-size:13.5px; font-weight:600; text-decoration:none; padding:7px 12px; background:var(--flare); color:var(--ink); border-radius:2px;}
   nav.sections .cta:hover{background:var(--flare-dim);}
+  nav.sections .nav-brand, nav.sections .menu-btn{display:none;}
   @media (max-width:640px){
-    nav.sections .wrap{flex-wrap:wrap; justify-content:center; align-items:center; gap:2px 0; padding:5px 6px;}
-    nav.sections ul{display:contents;}
-    nav.sections li a{padding:4px 6px !important;}
-    nav.sections .cta{padding:4px 10px; font-size:13px; margin-left:4px;}
+    nav.sections .wrap{position:relative; gap:10px; padding-top:8px; padding-bottom:8px;}
+    nav.sections .nav-brand{display:block; flex:1; font-family:var(--serif); font-weight:600; font-size:19px; color:var(--ink); text-decoration:none;}
+    nav.sections .nav-brand span{color:var(--flare);}
+    nav.sections .cta{padding:6px 12px;}
+    nav.sections .menu-btn{display:flex; flex-direction:column; justify-content:center; gap:5px; width:40px; height:36px; padding:0 9px; background:none; border:1px solid var(--rule); border-radius:2px; cursor:pointer;}
+    nav.sections .menu-btn span{display:block; height:2px; background:var(--ink); transition:transform .2s, opacity .2s;}
+    nav.sections.open .menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    nav.sections.open .menu-btn span:nth-child(2){opacity:0;}
+    nav.sections.open .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    nav.sections ul{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0; overflow:visible; background:var(--paper); border-bottom:3px solid var(--ink); box-shadow:0 12px 24px rgba(51,43,30,.12);}
+    nav.sections.open ul{display:flex;}
+    nav.sections li a{padding:14px 20px; font-size:16px; border-bottom:1px solid var(--rule); border-left:3px solid transparent; margin:0;}
+    nav.sections li a:hover{border-bottom-color:var(--rule);}
+    nav.sections li a.on{border-bottom-color:var(--rule); border-left-color:var(--flare); background:var(--rock1);}
   }
 
   /* ---------- Portada ---------- */
@@ -125,6 +130,14 @@
   .lead-story .more{display:inline-block; margin-top:18px; font-size:14px; font-weight:600; color:var(--gas-dim); text-decoration:none;}
   .lead-story .more:hover{text-decoration:underline;}
 
+  .summary{margin-top:26px; padding-top:16px; border-top:1px solid var(--rule);}
+  .summary h2{font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--sand-dim); margin:0 0 4px;}
+  .summary ol{list-style:none; margin:0; padding:0; counter-reset:sm;}
+  .summary li{counter-increment:sm; display:grid; grid-template-columns:26px minmax(0,1fr); gap:8px; padding:9px 0; border-bottom:1px dashed var(--rule); font-size:15.5px; line-height:1.45;}
+  .summary li:last-child{border-bottom:0;}
+  .summary li::before{content:counter(sm); font-family:var(--serif); font-size:20px; line-height:1.1; color:var(--flare-dim);}
+  .summary li a{white-space:nowrap; font-size:13.5px; font-weight:600; color:var(--gas-dim); text-decoration:none; margin-left:4px;}
+  .summary li a:hover{text-decoration:underline;}
   .figures h2{font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-3); margin:0 0 4px;}
   .fig{padding:14px 0; border-bottom:1px solid var(--rule);}
   .fig:last-child{border-bottom:0; padding-bottom:0;}
@@ -304,7 +317,8 @@
 
 <nav class="sections" aria-label="Secciones">
   <div class="wrap">
-    <ul>
+    <a class="nav-brand" href="#contenido">Impulso <span>VM</span></a>
+    <ul id="menu">
       <li><a href="#balanza">Balanza</a></li>
       <li><a href="#comercio">Exportaciones e importaciones</a></li>
       <li><a href="#produccion">Producción</a></li>
@@ -315,6 +329,7 @@
       <li><a href="#contacto">Contacto</a></li>
     </ul>
     <a class="cta" href="#suscripcion">Suscribirme</a>
+    <button class="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div class="strata" aria-hidden="true"><span style="background:var(--rock1)"></span><span style="background:var(--rock2)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock4)"></span><span style="background:var(--rock2)"></span><span style="background:var(--flare-dim)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock1)"></span></div>
@@ -327,7 +342,16 @@
       <p class="kicker">Financiamiento</p>
       <h1>Estados Unidos ofrece hasta USD 7.000 millones a la Argentina y casi todo apunta a Argentina LNG</h1>
       <p class="deck">El Exim Bank puso sobre la mesa hasta USD 6.000 millones para el proyecto de GNL de YPF, Eni y XRG. En paralelo, el INDEC confirmó que el superávit energético de enero a agosto ya supera el de todo 2025.</p>
-      <a class="more" href="#noticias">Lo que pasó esta semana ↓</a>
+      <div class="summary">
+        <h2>La semana en cinco puntos</h2>
+        <ol>
+          <li><span>Estados Unidos ofreció hasta USD 7.000 millones en financiamiento, con hasta USD 6.000 millones para Argentina LNG. <a href="#noticias">Ver más →</a></span></li>
+          <li><span>El superávit energético de enero a agosto (USD 7.834 M) ya supera al de todo 2025 (USD 7.815 M). <a href="#balanza">Ver más →</a></span></li>
+          <li><span>La producción de petróleo marcó récord en agosto: 930.500 b/d, más del 70% desde Vaca Muerta. <a href="#produccion">Ver más →</a></span></li>
+          <li><span>YPF sumó el primer set de fractura eléctrica de Vaca Muerta, de la mano de Halliburton. <a href="#noticias">Ver más →</a></span></li>
+          <li><span>El riesgo país cerró el viernes en 609 puntos, su nivel más alto en casi seis meses. <a href="#termometro">Ver más →</a></span></li>
+        </ol>
+      </div>
     </article>
 
     <aside class="figures" aria-labelledby="fig-title">
@@ -853,6 +877,19 @@ window.addEventListener('resize', () => {
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawCharts);
 
 /* Sección activa en el menú */
+/* Menú hamburguesa (celular) */
+const nav = document.querySelector('nav.sections');
+const menuBtn = nav.querySelector('.menu-btn');
+function setMenu(open){
+  nav.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+}
+menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+document.addEventListener('click', e => { if (!nav.contains(e.target)) setMenu(false); });
+
 const links = [...document.querySelectorAll('nav.sections li a')];
 const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
 if ('IntersectionObserver' in window){
