@@ -65,6 +65,7 @@
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
+    overflow-x:clip;
   }
   a{color:inherit; text-decoration-color:var(--rule); text-underline-offset:3px;}
   a:hover{text-decoration-color:currentColor;}
@@ -81,7 +82,6 @@
   .dateline{border-bottom:1px solid var(--rule); font-size:12.5px; color:var(--ink-3);}
   .dateline .wrap{display:flex; justify-content:space-between; gap:12px; padding-top:8px; padding-bottom:8px;}
   .dateline .live::before{content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--up); margin-right:7px; vertical-align:1px;}
-  @media (max-width:640px){ .dateline .hide-sm{display:none;} }
 
   .masthead{padding:26px 0 18px; text-align:center;}
   .masthead .logo{font-family:var(--serif); font-weight:600; font-size:clamp(40px, 7vw, 64px); line-height:1; letter-spacing:-0.02em; margin:0;}
@@ -92,6 +92,12 @@
   nav.sections .wrap{display:flex; align-items:center; gap:4px;}
   nav.sections ul{list-style:none; margin:0; padding:0; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; flex:1;}
   nav.sections ul::-webkit-scrollbar{display:none;}
+  @media (max-width:640px){
+    nav.sections .wrap{padding:4px 10px;}
+    nav.sections ul{flex-wrap:wrap; justify-content:center; overflow:visible; gap:0 2px;}
+    nav.sections li a{padding:4px 7px !important; font-size:13px !important; border-bottom:0 !important; border-radius:2px;}
+    nav.sections li a.on{background:var(--rock4);}
+  }
   nav.sections li a{display:block; padding:12px 10px; font-size:14px; font-weight:500; text-decoration:none; white-space:nowrap; color:var(--ink-2); border-bottom:2px solid transparent; margin-bottom:-1px;}
   nav.sections li a:hover{color:var(--ink); border-bottom-color:var(--ink);}
   nav.sections li a.on{color:var(--ink); border-bottom-color:var(--flare);}
@@ -259,8 +265,7 @@
 
   /* ---------- Pie ---------- */
   footer{padding:36px 0 48px; font-size:14px; color:var(--ink-2);}
-  footer .cols{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);}
-  @media (max-width:860px){ footer .cols{grid-template-columns:1fr;} }
+  footer .cols{grid-template-columns:1fr;}
   footer .logo{font-family:var(--serif); font-weight:600; font-size:24px; color:var(--ink); margin:0 0 6px;}
   footer .logo span{color:var(--flare);}
   footer p{margin:0 0 10px; max-width:560px;}
@@ -282,7 +287,6 @@
 <div class="dateline">
   <div class="wrap">
     <span class="live">Edición del viernes 25 de septiembre de 2026</span>
-    <span class="hide-sm">Datos del INDEC y la Secretaría de Energía · Se actualiza todos los viernes</span>
   </div>
 </div>
 
@@ -685,14 +689,6 @@
         <p>Seguimiento económico y estratégico de Vaca Muerta. Todos los viernes actualizamos el sitio con los últimos datos oficiales del INDEC y la Secretaría de Energía, más un resumen de lo que marcó la agenda de la semana.</p>
         <p>Última actualización: viernes 25 de septiembre de 2026.</p>
       </div>
-      <div>
-        <h2>Fuentes</h2>
-        <ul>
-          <li><a href="https://www.indec.gob.ar/" target="_blank" rel="noopener">INDEC, Intercambio Comercial Argentino</a></li>
-          <li><a href="https://www.argentina.gob.ar/economia/energia" target="_blank" rel="noopener">Secretaría de Energía de la Nación</a></li>
-          <li>Medios citados en cada nota</li>
-        </ul>
-      </div>
     </div>
     <div class="legal">
       <span>© 2026 Impulso VM. Proyecto independiente.</span>
@@ -872,6 +868,7 @@ if ('IntersectionObserver' in window){
     });
   }, {rootMargin: '-45% 0px -50% 0px'});
   Object.keys(byId).forEach(id => { const s = document.getElementById(id); if (s) io.observe(s); });
+  const front = document.querySelector('.front'); if (front) io.observe(front); // arriba de todo: ninguna sección marcada
 }
 
 /* Suscripción (Web3Forms) */
