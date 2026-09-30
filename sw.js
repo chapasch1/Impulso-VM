@@ -3,7 +3,7 @@
      y, si no hay conexión, muestra la última guardada.
    - Íconos e imágenes propias: se sirven desde el caché.
    Si cambiás este archivo, subí el número de VERSION. */
-const VERSION = 'impulso-vm-v1';
+const VERSION = 'impulso-vm-v2';
 const PRECACHE = [
   './',
   './index.html',
@@ -36,11 +36,10 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(req)
         .then(res => {
-          const copy = res.clone();
-          caches.open(VERSION).then(c => c.put('./index.html', copy));
+          if (res.ok) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }
           return res;
         })
-        .catch(() => caches.match('./index.html'))
+        .catch(() => caches.match(req, {ignoreSearch: true}).then(hit => hit || caches.match('./index.html')))
     );
     return;
   }
