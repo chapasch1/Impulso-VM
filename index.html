@@ -31,10 +31,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
   :root{
-    /* Paleta de Impulso VM */
+    /* Paleta original de Impulso VM */
     --paper:#FBF6EA;
     --paper-2:#F3ECD9;
     --ink:#332B1E;
@@ -53,21 +54,13 @@
     --gas-dim:#3A87A1;
     --up:#4C9A6A;
     --down:#B5533C;
-    /* La roca: fondos oscuros */
-    --night:#F3ECD9;
-    --night-2:#EAE0C4;
-    --night-3:#E6DCC4;
-    --cream:#332B1E;
-    --cream-2:#5A5042;
-    --cream-3:#74695A;
-    --serif:'Fraunces', Georgia, 'Times New Roman', serif;       /* títulos */
-    --sans:'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; /* textos */
-    --mono:'Source Serif 4', Georgia, serif;                       /* cifras y etiquetas */
-    --nav-h:60px;
+    --serif:'Newsreader', Georgia, 'Times New Roman', serif;
+    --sans:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
   }
 
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 12px);}
+  html{scroll-behavior:smooth; scroll-padding-top:64px;}
   @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
   html,body{margin:0; padding:0;}
   body{
@@ -82,338 +75,273 @@
   }
   a{color:inherit; text-decoration-color:var(--rule); text-underline-offset:3px;}
   a:hover{text-decoration-color:currentColor;}
-  a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--gas); outline-offset:3px;}
+  a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--gas); outline-offset:2px;}
   ::selection{background:var(--flare); color:var(--ink);}
 
-  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
-  @media (max-width:600px){ .wrap{padding:0 18px;} }
-  .num{font-variant-numeric:tabular-nums lining-nums;}
-  .skip{position:absolute; left:-9999px; top:0; background:var(--flare); color:var(--ink); padding:8px 12px; z-index:100;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 20px;}
+  .num, .tab{font-variant-numeric:tabular-nums lining-nums;}
+  .skip{position:absolute; left:-9999px; top:0; background:var(--ink); color:var(--paper); padding:8px 12px; z-index:100;}
   .skip:focus{left:12px; top:12px;}
   .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
 
-  /* ---------- Aparición al hacer scroll ---------- */
-  .js .reveal{opacity:0; transform:translateY(22px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);}
-  .js .reveal.in{opacity:1; transform:none;}
-  @media (prefers-reduced-motion: reduce){ .js .reveal{opacity:1; transform:none; transition:none;} }
+  /* ---------- Cabecera ---------- */
+  .dateline{border-bottom:1px solid var(--rule); font-size:12.5px; color:var(--ink-3);}
+  .dateline .wrap{display:flex; justify-content:space-between; gap:12px; padding-top:8px; padding-bottom:8px;}
+  .dateline .live::before{content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--up); margin-right:7px; vertical-align:1px;}
 
-  /* ---------- Menú ---------- */
-  nav.top{border-top:3px solid var(--ink); position:sticky; top:0; z-index:40; background:rgba(251,246,234,.94); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-bottom:1px solid rgba(51,43,30,.08); color:var(--cream);}
-  nav.top .wrap{display:flex; align-items:center; gap:18px; height:var(--nav-h);}
-  .progress-line{position:absolute; left:0; bottom:-1px; height:2px; width:100%; background:var(--flare); transform-origin:0 50%; transform:scaleX(0);}
-  .brand{font-family:var(--serif); font-weight:600; font-size:22px; letter-spacing:-.01em; color:var(--cream); text-decoration:none; white-space:nowrap;}
-  .brand span{color:var(--flare);}
-  nav.top ul{list-style:none; margin:0 auto; padding:0; display:flex; gap:2px;}
-  nav.top li a{display:block; padding:8px 10px; font-size:13.5px; font-weight:500; color:var(--cream-2); text-decoration:none; border-radius:2px; white-space:nowrap; transition:color .2s, background .2s;}
-  nav.top li a:hover{color:var(--cream); background:rgba(51,43,30,.06);}
-  nav.top li a.on{color:var(--ink); box-shadow:inset 0 -2px 0 var(--flare);}
-  .cta{flex:none; font-size:13.5px; font-weight:600; text-decoration:none; padding:9px 16px; background:var(--flare); color:var(--ink); border-radius:2px; transition:background .2s, transform .2s;}
-  .cta:hover{background:var(--flare-dim); transform:translateY(-1px);}
-  .menu-btn{display:none;}
-  @media (max-width:1020px){
-    nav.top li a{padding:8px 7px; font-size:13px;}
-  }
-  @media (max-width:900px){
-    nav.top .wrap{gap:10px;}
-    .brand{flex:1;}
-    .menu-btn{display:flex; flex-direction:column; justify-content:center; gap:5px; width:42px; height:38px; padding:0 10px; background:none; border:1px solid rgba(51,43,30,.2); border-radius:2px; cursor:pointer;}
-    .menu-btn span{display:block; height:2px; background:var(--cream); transition:transform .25s, opacity .25s;}
-    nav.top.open .menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-    nav.top.open .menu-btn span:nth-child(2){opacity:0;}
-    nav.top.open .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-    nav.top ul{display:none; position:absolute; top:var(--nav-h); left:0; right:0; flex-direction:column; gap:0; margin:0; background:var(--paper); border-bottom:2px solid var(--flare); box-shadow:0 24px 40px rgba(51,43,30,.18); max-height:calc(100vh - var(--nav-h)); overflow:auto;}
-    nav.top.open ul{display:flex;}
-    nav.top li a{padding:16px 24px; font-size:17px; font-family:var(--serif); border-radius:0; border-bottom:1px solid rgba(51,43,30,.08);}
-    nav.top li a.on{background:var(--rock1); box-shadow:inset 3px 0 0 var(--flare);}
-  }
-  @media (max-width:380px){ .cta{padding:8px 11px;} }
+  .masthead{padding:26px 0 18px; text-align:center;}
+  .masthead .logo{font-family:var(--serif); font-weight:600; font-size:clamp(40px, 7vw, 64px); line-height:1; letter-spacing:-0.02em; margin:0;}
+  .masthead .logo span{color:var(--flare);}
+  .masthead .tagline{font-family:var(--serif); font-style:italic; color:var(--ink-2); font-size:17px; margin:10px 0 0;}
 
-  /* ---------- Portada: la cuenca ---------- */
-  .hero{background:var(--paper); color:var(--ink); position:relative; overflow:hidden;}
-  .hero::before{content:""; position:absolute; inset:0; background:radial-gradient(900px 420px at 80% 8%, rgba(252,226,155,.55), transparent 62%), radial-gradient(700px 380px at 0% 0%, rgba(191,227,234,.45), transparent 60%); pointer-events:none;}
-  .hero .wrap{position:relative; padding-top:clamp(30px, 4.2vw, 52px);}
-  .edition{display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--cream-3); margin:0 0 20px;}
-  .edition::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--flare); box-shadow:0 0 0 0 rgba(240,180,41,.6); animation:ping 2.4s infinite;}
-  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(240,180,41,.55);} 70%{box-shadow:0 0 0 10px rgba(240,180,41,0);} 100%{box-shadow:0 0 0 0 rgba(240,180,41,0);}}
-  .hero-grid{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:20px 56px; align-items:end; margin-top:24px;}
-  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr; gap:18px;} }
-  .hero .kicker{color:var(--sand-dim);}
-  .hero h1{max-width:1060px; font-family:var(--serif); font-weight:500; font-size:clamp(36px, 5vw, 64px); line-height:1.02; letter-spacing:-.025em; margin:0; color:var(--cream); text-wrap:balance;}
-  .hero h1 em{font-style:italic; color:var(--flare-dim);}
-  .hero .deck{font-family:var(--serif); font-size:clamp(18px, 1.8vw, 21px); line-height:1.5; color:var(--cream-2); margin:0;}
-  .hero-actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end;}
-  @media (max-width:900px){ .hero-actions{justify-content:flex-start;} }
-  .btn-ghost{font-size:14px; font-weight:600; color:var(--cream); text-decoration:none; padding:10px 16px; border:1px solid rgba(51,43,30,.25); border-radius:2px; transition:border-color .2s, background .2s;}
-  .btn-ghost:hover{border-color:var(--ink); background:rgba(51,43,30,.04);}
-  .hero-actions .cta{font-size:14px; padding:10px 18px;}
-
-  .basin{display:block; width:100%; aspect-ratio:4 / 1; height:auto; margin-top:clamp(20px, 3vw, 36px);}
-  @media (max-width:760px){ .basin{aspect-ratio:auto; height:210px;} }
-  .basin .well{fill:none; stroke:var(--cream); stroke-width:3; stroke-linecap:round; stroke-linejoin:round;}
-  .basin .stage circle{fill:var(--cream);}
-  .basin .stage line{stroke:var(--cream); stroke-width:1.6; stroke-linecap:round;}
-  .basin .vm-band{animation:glow 4s ease-in-out infinite;}
-  @keyframes glow{0%,100%{opacity:.92;} 50%{opacity:1;}}
-  .basin .beacon{fill:var(--flare); animation:blink 1.6s steps(2) infinite;}
-  @keyframes blink{50%{opacity:.2;}}
-  .js .basin .well{stroke-dasharray:1100; stroke-dashoffset:1100;}
-  .js .basin .stage{opacity:0; transform:scale(.3); transform-box:fill-box; transform-origin:center;}
-  .js .basin.go .well{animation:drill 2.6s cubic-bezier(.55,.1,.3,1) .3s forwards;}
-  .js .basin.go .stage{animation:frac .5s ease-out forwards;}
-  @keyframes drill{to{stroke-dashoffset:0;}}
-  @keyframes frac{to{opacity:1; transform:none;}}
-  @media (prefers-reduced-motion: reduce){
-    .js .basin .well{stroke-dasharray:none; stroke-dashoffset:0; animation:none !important;}
-    .js .basin .stage{opacity:1; transform:none; animation:none !important;}
-    .basin .vm-band, .basin .beacon, .edition::before{animation:none;}
+  nav.sections{position:sticky; top:0; z-index:20; background:var(--paper); border-top:3px solid var(--ink); border-bottom:1px solid var(--rule);}
+  nav.sections .wrap{display:flex; align-items:center; gap:4px;}
+  nav.sections ul{list-style:none; margin:0; padding:0; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; flex:1;}
+  nav.sections ul::-webkit-scrollbar{display:none;}
+  nav.sections li a{display:block; padding:12px 10px; font-size:14px; font-weight:500; text-decoration:none; white-space:nowrap; color:var(--ink-2); border-bottom:2px solid transparent; margin-bottom:-1px;}
+  nav.sections li a:hover{color:var(--ink); border-bottom-color:var(--ink);}
+  nav.sections li a.on{color:var(--ink); border-bottom-color:var(--flare);}
+  nav.sections .cta{flex:none; font-size:13.5px; font-weight:600; text-decoration:none; padding:7px 12px; background:var(--flare); color:var(--ink); border-radius:2px;}
+  nav.sections .cta:hover{background:var(--flare-dim);}
+  nav.sections .nav-brand, nav.sections .menu-btn{display:none;}
+  @media (max-width:640px){
+    nav.sections .wrap{position:relative; gap:10px; padding-top:8px; padding-bottom:8px;}
+    nav.sections .nav-brand{display:block; flex:1; font-family:var(--serif); font-weight:600; font-size:19px; color:var(--ink); text-decoration:none;}
+    nav.sections .nav-brand span{color:var(--flare);}
+    nav.sections .cta{padding:6px 12px;}
+    nav.sections .menu-btn{display:flex; flex-direction:column; justify-content:center; gap:5px; width:40px; height:36px; padding:0 9px; background:none; border:1px solid var(--rule); border-radius:2px; cursor:pointer;}
+    nav.sections .menu-btn span{display:block; height:2px; background:var(--ink); transition:transform .2s, opacity .2s;}
+    nav.sections.open .menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    nav.sections.open .menu-btn span:nth-child(2){opacity:0;}
+    nav.sections.open .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    nav.sections ul{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0; overflow:visible; background:var(--paper); border-bottom:3px solid var(--ink); box-shadow:0 12px 24px rgba(51,43,30,.12);}
+    nav.sections.open ul{display:flex;}
+    nav.sections li a{padding:14px 20px; font-size:16px; border-bottom:1px solid var(--rule); border-left:3px solid transparent; margin:0;}
+    nav.sections li a:hover{border-bottom-color:var(--rule);}
+    nav.sections li a.on{border-bottom-color:var(--rule); border-left-color:var(--flare); background:var(--rock1);}
   }
 
-  .hero-stats-wrap{background:var(--night-2); border-top:1px solid rgba(51,43,30,.12); position:relative;}
-  .hero-stats{display:grid; grid-template-columns:repeat(4, minmax(0,1fr));}
-  .hero-stats > div{padding:22px 24px 24px; border-left:1px solid rgba(51,43,30,.1);}
-  .hero-stats > div:first-child{border-left:0; padding-left:0;}
-  .hero-stats .v{font-family:var(--serif); font-size:clamp(30px, 3.4vw, 44px); line-height:1; letter-spacing:-.02em; color:var(--cream);}
-  .hero-stats .v small{font-family:var(--sans); font-size:14px; color:var(--cream-3); margin-left:4px; letter-spacing:0;}
-  .hero-stats .l{font-size:13.5px; color:var(--cream-2); margin-top:8px;}
-  .hero-stats .d{font-family:var(--mono); font-size:12px; color:var(--sand-dim); margin-top:4px;}
-  .hero-stats .d.warn{color:var(--down);}
-  @media (max-width:820px){
-    .hero-stats{grid-template-columns:1fr 1fr;}
-    .hero-stats > div:nth-child(3){border-left:0; padding-left:0;}
-    .hero-stats > div:nth-child(n+3){border-top:1px solid rgba(51,43,30,.1);}
-    .hero-stats > div{padding:18px 14px 20px;}
+  /* ---------- Portada ---------- */
+  .front{display:grid; grid-template-columns:minmax(0,1.75fr) minmax(0,1fr); gap:0; padding:34px 0 40px; border-bottom:1px solid var(--ink);}
+  .front .lead-story{padding-right:36px; border-right:1px solid var(--rule);}
+  .front .figures{padding-left:32px;}
+  @media (max-width:860px){
+    .front{grid-template-columns:1fr;}
+    .front .lead-story{padding-right:0; border-right:0; padding-bottom:28px; border-bottom:1px solid var(--rule);}
+    .front .figures{padding-left:0; padding-top:22px;}
   }
+  .kicker{font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--sand-dim); margin:0 0 10px;}
+  .lead-story h1{font-family:var(--serif); font-weight:500; font-size:clamp(30px, 4.4vw, 46px); line-height:1.08; letter-spacing:-0.015em; margin:0;}
+  .lead-story .deck{font-family:var(--serif); font-size:20px; line-height:1.45; color:var(--ink-2); margin:16px 0 0; max-width:640px;}
+  .lead-story .more{display:inline-block; margin-top:18px; font-size:14px; font-weight:600; color:var(--gas-dim); text-decoration:none;}
+  .lead-story .more:hover{text-decoration:underline;}
 
-  /* ---------- La semana en cinco puntos ---------- */
-  .brief{padding:clamp(40px, 6vw, 72px) 0 clamp(28px, 4vw, 40px); border-bottom:1px solid var(--rule);}
-  .brief-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:22px;}
-  .brief-head h2{font-family:var(--serif); font-weight:500; font-size:clamp(26px, 3vw, 34px); margin:0; letter-spacing:-.01em;}
-  .brief-head span{font-family:var(--mono); font-size:12.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.06em;}
-  .brief ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:0; counter-reset:b; border-top:2px solid var(--ink);}
-  .brief li{counter-increment:b; position:relative; padding:18px 18px 20px 0; border-right:1px solid var(--rule);}
-  .brief li + li{padding-left:18px;}
-  .brief li:last-child{border-right:0;}
-  .brief li::before{content:"0" counter(b); display:block; font-family:var(--serif); font-size:40px; line-height:1; color:var(--flare-dim); margin-bottom:10px;}
-  .brief li p{margin:0; font-size:15px; line-height:1.5; color:var(--ink);}
-  .brief li a{display:inline-block; margin-top:10px; font-size:13px; font-weight:600; color:var(--gas-dim); text-decoration:none;}
-  .brief li a:hover{text-decoration:underline;}
-  @media (max-width:980px){
-    .brief ol{grid-template-columns:1fr 1fr;}
-    .brief li, .brief li + li{padding:18px 16px 20px 0; border-right:0; border-bottom:1px solid var(--rule);}
-    .brief li:nth-child(even){padding-left:16px; border-left:1px solid var(--rule);}
-  }
-  @media (max-width:560px){
-    .brief ol{grid-template-columns:1fr;}
-    .brief li, .brief li + li, .brief li:nth-child(even){padding:16px 0 18px 56px; border-left:0;}
-    .brief li::before{position:absolute; left:0; top:16px; font-size:32px;}
-  }
+  .summary{margin-top:26px; padding-top:16px; border-top:1px solid var(--rule);}
+  .summary h2{font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--sand-dim); margin:0 0 4px;}
+  .summary ol{list-style:none; margin:0; padding:0; counter-reset:sm;}
+  .summary li{counter-increment:sm; display:grid; grid-template-columns:26px minmax(0,1fr); gap:8px; padding:9px 0; border-bottom:1px dashed var(--rule); font-size:15.5px; line-height:1.45;}
+  .summary li:last-child{border-bottom:0;}
+  .summary li::before{content:counter(sm); font-family:var(--serif); font-size:20px; line-height:1.1; color:var(--flare-dim);}
+  .summary li a{white-space:nowrap; font-size:13.5px; font-weight:600; color:var(--gas-dim); text-decoration:none; margin-left:4px;}
+  .summary li a:hover{text-decoration:underline;}
+  .figures h2{font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-3); margin:0 0 4px;}
+  .fig{padding:14px 0; border-bottom:1px solid var(--rule);}
+  .fig:last-child{border-bottom:0; padding-bottom:0;}
+  .fig .v{font-family:var(--serif); font-size:34px; font-weight:500; line-height:1.05; letter-spacing:-0.01em;}
+  .fig .v small{font-family:var(--sans); font-size:14px; color:var(--ink-3); font-weight:400; margin-left:3px; letter-spacing:0;}
+  .fig .l{font-size:14px; color:var(--ink-2); margin-top:4px;}
+  .fig .d{font-size:13px; color:var(--ink-3); margin-top:2px;}
+  .up{color:var(--up);}
 
   /* ---------- Secciones ---------- */
-  section.block{padding:clamp(56px, 8vw, 104px) 0; border-bottom:1px solid var(--rule);}
-  .kicker{font-family:var(--mono); font-size:12px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--sand-dim); margin:0 0 12px;}
-  .sec-head{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:20px 56px; align-items:end; margin-bottom:clamp(30px, 4vw, 48px);}
-  .sec-head h2{font-family:var(--serif); font-weight:500; font-size:clamp(30px, 4.2vw, 52px); line-height:1.05; letter-spacing:-.02em; margin:0; text-wrap:balance;}
-  .sec-head p.intro{margin:0; color:var(--ink-2); font-size:17px; line-height:1.55;}
-  @media (max-width:860px){ .sec-head{grid-template-columns:1fr;} }
+  section.block{padding:44px 0 48px; border-bottom:1px solid var(--rule);}
+  .sec-head{margin-bottom:26px; max-width:720px;}
+  .sec-head h2{font-family:var(--serif); font-weight:500; font-size:clamp(26px, 3.2vw, 34px); line-height:1.15; letter-spacing:-0.01em; margin:0;}
+  .sec-head p:not(.kicker){margin:10px 0 0; color:var(--ink-2); font-size:16.5px;}
 
-  .cols{display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:clamp(32px, 5vw, 64px);}
+  .cols{display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:40px;}
   .cols.even{grid-template-columns:1fr 1fr;}
-  @media (max-width:860px){ .cols, .cols.even{grid-template-columns:1fr; gap:36px;} }
+  @media (max-width:860px){ .cols, .cols.even{grid-template-columns:1fr; gap:32px;} }
 
-  .panel{background:#FFFCF4; border:1px solid var(--rule); padding:clamp(18px, 2.4vw, 28px); border-radius:3px; box-shadow:0 1px 0 rgba(51,43,30,.03), 0 18px 40px -28px rgba(51,43,30,.25);}
   .chart-title{font-size:15px; font-weight:600; margin:0;}
-  .chart-sub{font-family:var(--mono); font-size:12px; color:var(--ink-3); margin:4px 0 14px;}
+  .chart-sub{font-size:13.5px; color:var(--ink-3); margin:2px 0 12px;}
   .chart{width:100%; min-height:240px;}
   .chart svg{display:block; overflow:visible;}
   .chart text{font-family:var(--mono); font-size:11.5px; fill:var(--ink-3);}
-  .chart .val{fill:var(--ink); font-weight:500;}
+  .chart .val{fill:var(--ink-2); font-weight:500;}
   .chart .grid{stroke:var(--rule); stroke-width:1;}
   .chart .base{stroke:var(--ink); stroke-width:1;}
-  .chart .bar-r{transform-box:fill-box; transform-origin:50% 100%; transition:transform .9s cubic-bezier(.2,.8,.2,1), filter .2s;}
-  .chart .bar-r:hover{filter:brightness(1.08);}
-  .chart .val{transition:opacity .5s ease;}
-  .js .chart:not(.in) .bar-r{transform:scaleY(0);}
-  .js .chart:not(.in) .val, .js .chart:not(.in) .pt{opacity:0;}
-  .chart .pt{transition:opacity .5s ease;}
-  .chart .line{transition:stroke-dashoffset 1.8s cubic-bezier(.4,.1,.2,1);}
-  @media (prefers-reduced-motion: reduce){ .chart .bar-r, .chart .line, .chart .val, .chart .pt{transition:none;} .js .chart:not(.in) .bar-r{transform:none;} .js .chart:not(.in) .val, .js .chart:not(.in) .pt{opacity:1;} }
-  .source{font-size:12.5px; color:var(--ink-3); margin:14px 0 0; line-height:1.55;}
+  .source{font-size:12.5px; color:var(--ink-3); margin:12px 0 0; line-height:1.5;}
   .source b{font-weight:600; color:var(--ink-2);}
 
-  h3.sub{font-size:13px; font-family:var(--mono); font-weight:500; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-3); margin:0 0 8px;}
-  table.data{width:100%; border-collapse:collapse; font-size:15.5px;}
-  table.data th, table.data td{padding:13px 0; border-bottom:1px solid var(--rule); text-align:left; vertical-align:baseline; font-weight:400;}
+  h3.sub{font-size:15px; font-weight:600; margin:0 0 6px;}
+  table.data{width:100%; border-collapse:collapse; font-size:15px;}
+  table.data th, table.data td{padding:11px 0; border-bottom:1px solid var(--rule); text-align:left; vertical-align:baseline; font-weight:400;}
   table.data th{color:var(--ink-2); padding-right:16px;}
   table.data td{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; font-weight:500;}
   table.data td.wrap-ok{white-space:normal; text-align:left; font-weight:400; color:var(--ink-2);}
-  table.data tr.total th, table.data tr.total td{border-top:2px solid var(--ink); font-weight:600; color:var(--ink);}
-  table.data tr.total td{font-family:var(--serif); font-size:20px;}
+  table.data tr.total th, table.data tr.total td{border-top:1px solid var(--ink); font-weight:600; color:var(--ink);}
   table.data .note{display:block; font-size:12.5px; color:var(--up); font-weight:500;}
-  table.data .tag-new{font-family:var(--mono); font-size:10.5px; font-weight:500; color:var(--ink); background:var(--flare); padding:2px 6px; margin-left:8px; border-radius:2px; text-transform:uppercase; letter-spacing:.04em; vertical-align:2px;}
+  table.data .tag-new{font-size:11.5px; font-weight:600; color:var(--sand-dim); margin-left:6px; text-transform:uppercase; letter-spacing:0.04em;}
+
+  .strip{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); border-top:1px solid var(--ink); border-bottom:1px solid var(--rule);}
+  .strip > div{padding:16px 18px 18px; border-left:1px solid var(--rule);}
+  .strip > div:first-child{border-left:0; padding-left:0;}
+  .strip .v{font-family:var(--serif); font-size:28px; font-weight:500; line-height:1.1;}
+  .strip .v small{font-family:var(--sans); font-size:13.5px; color:var(--ink-3); font-weight:400; margin-left:2px;}
+  .strip .l{font-size:13.5px; color:var(--ink-2); margin-top:4px;}
+  .strip .d{font-size:13px; color:var(--ink-3); margin-top:3px;}
+  @media (max-width:760px){
+    .strip{grid-template-columns:1fr 1fr;}
+    .strip > div:nth-child(3){border-left:0; padding-left:0;}
+    .strip > div:nth-child(n+3){border-top:1px solid var(--rule);}
+  }
+
+  .callout{font-family:var(--serif); font-size:21px; line-height:1.4; margin:28px 0 0; max-width:760px;}
+  .callout b{font-weight:600;}
+
+  /* barras de empresas y avance */
+  .hbars{list-style:none; margin:0; padding:0;}
+  .hbars li{padding:10px 0; border-bottom:1px solid var(--rule);}
+  .hbars .row{display:flex; justify-content:space-between; gap:12px; font-size:15px; margin-bottom:7px;}
+  .hbars .row span:last-child{font-variant-numeric:tabular-nums; font-weight:600;}
+  .hbars .row em{font-style:normal; color:var(--ink-3); font-size:13.5px;}
+  .bar{height:8px; background:var(--paper-2);}
+  .bar i{display:block; height:100%; background:linear-gradient(90deg, var(--flare-dim), var(--flare));}
+  .progress .bar i{background:linear-gradient(90deg, var(--gas), #7FC3CF);}
+  .bar i.muted{background:var(--ink-3); opacity:.45;}
+
+  .chips{display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:8px; font-size:14.5px; color:var(--ink-2);}
+  .chips span:not(:last-child)::after{content:"·"; margin-left:14px; color:var(--ink-3);}
+
+  .progress{margin:6px 0 20px;}
+  .progress .row{display:flex; justify-content:space-between; font-size:14.5px; margin-bottom:6px;}
+  .progress .bar{height:10px;}
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .pair .v{font-family:var(--serif); font-size:26px; font-weight:500; line-height:1.1;}
+  .pair .l{font-size:13.5px; color:var(--ink-2); margin-top:4px;}
+
+  .feature{margin-top:40px; padding-top:22px; border-top:1px solid var(--ink);}
+  .feature h3{font-family:var(--serif); font-weight:500; font-size:24px; margin:0;}
+  .feature > p:not(.kicker){color:var(--ink-2); max-width:720px; margin:8px 0 20px;}
+
+  /* ---------- Semana ---------- */
+  .week{display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-bottom:36px;}
+  @media (max-width:760px){ .week{grid-template-columns:1fr; gap:24px;} }
+  .week .item{border-top:1px solid var(--ink); padding-top:12px;}
+  .week .item p:not(.kicker){font-family:var(--serif); font-size:21px; line-height:1.4; margin:0;}
+  .week .item.q p:not(.kicker){font-style:italic;}
+
+  .news{list-style:none; margin:0; padding:0; border-top:1px solid var(--rule);}
+  .news li{display:grid; grid-template-columns:110px minmax(0,1fr); gap:20px; padding:18px 0; border-bottom:1px solid var(--rule);}
+  @media (max-width:600px){ .news li{grid-template-columns:1fr; gap:4px;} }
+  .news time{font-size:13px; color:var(--ink-3); padding-top:4px; font-variant-numeric:tabular-nums;}
+  .news h3{font-family:var(--serif); font-weight:500; font-size:21px; line-height:1.25; margin:0;}
+  .news h3 a{text-decoration:none;}
+  .news h3 a:hover{text-decoration:underline; text-decoration-color:var(--flare); text-decoration-thickness:2px;}
+  .news p{margin:6px 0 0; color:var(--ink-2); font-size:15.5px;}
+  .news .read-btn{display:inline-block; margin-top:8px; font-size:15px; font-weight:700; color:var(--flare-dim); text-decoration:none;}
+  .news .read-btn:hover{color:var(--sand-dim); text-decoration:underline; text-underline-offset:3px;}
+  .news .src{font-size:12.5px; color:var(--ink-3); margin-top:6px; text-transform:uppercase; letter-spacing:0.05em;}
+
+  /* ---------- Termómetro ---------- */
+  .strata{display:flex; height:8px;}
+  .strata span{flex:1;}
   table.data td.chg{width:92px; font-size:14px;}
   table.data td.chg.good{color:var(--up);}
   table.data td.chg.bad{color:var(--down);}
   table.data td.chg.flat{color:var(--ink-3); font-weight:400;}
   table.data th small{display:block; font-size:12.5px; color:var(--ink-3);}
-  .up{color:var(--up);}
-
-  .strip{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); border-top:2px solid var(--ink); border-bottom:1px solid var(--rule);}
-  .strip > div{padding:20px 22px 22px; border-left:1px solid var(--rule);}
-  .strip > div:first-child{border-left:0; padding-left:0;}
-  .strip .v{font-family:var(--serif); font-size:clamp(28px, 3vw, 38px); font-weight:500; line-height:1.05; letter-spacing:-.01em;}
-  .strip .v small{font-family:var(--sans); font-size:13.5px; color:var(--ink-3); font-weight:400; margin-left:3px;}
-  .strip .l{font-size:14px; color:var(--ink-2); margin-top:6px;}
-  .strip .d{font-size:13px; color:var(--ink-3); margin-top:3px;}
-  @media (max-width:760px){
-    .strip{grid-template-columns:1fr 1fr;}
-    .strip > div{padding:16px 14px 18px;}
-    .strip .v{font-size:24px;}
-    .strip > div:nth-child(3){border-left:0; padding-left:0;}
-    .strip > div:nth-child(n+3){border-top:1px solid var(--rule);}
-  }
-
-  /* ---------- Bandas oscuras ---------- */
-  .band{background:var(--paper-2); color:var(--ink); position:relative; overflow:hidden; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);}
-  .band::before{content:""; position:absolute; inset:0; background:radial-gradient(700px 360px at 85% 50%, rgba(252,226,155,.5), transparent 65%); pointer-events:none;}
-  .bigstat{padding:clamp(56px, 8vw, 110px) 0; position:relative;}
-  .bigstat .wrap{display:grid; grid-template-columns:auto minmax(0,1fr); gap:clamp(20px, 4vw, 56px); align-items:center;}
-  .bigstat .huge{font-family:var(--serif); font-weight:500; font-size:clamp(88px, 16vw, 210px); line-height:.85; letter-spacing:-.04em; color:var(--flare-dim);}
-  .bigstat .huge small{font-size:.45em; letter-spacing:0;}
-  .bigstat p:not(.kicker){font-family:var(--serif); font-size:clamp(21px, 2.5vw, 32px); line-height:1.3; margin:0; color:var(--cream); text-wrap:balance;}
-  .bigstat p b{font-weight:500; color:var(--sand-dim); font-style:italic;}
-  .bigstat .kicker{color:var(--sand-dim);}
-  @media (max-width:700px){ .bigstat .wrap{grid-template-columns:1fr;} }
-
-  /* barras de empresas */
-  .hbars{list-style:none; margin:0; padding:0;}
-  .hbars li{padding:14px 0; border-bottom:1px solid var(--rule);}
-  .hbars .row{display:flex; justify-content:space-between; gap:12px; font-size:15.5px; margin-bottom:9px;}
-  .hbars .row span:last-child{font-family:var(--serif); font-size:22px; line-height:1; font-variant-numeric:tabular-nums;}
-  .hbars .row em{font-style:normal; color:var(--ink-3); font-size:13.5px;}
-  .bar{height:10px; background:var(--paper-2); border-radius:1px; overflow:hidden;}
-  .bar i{display:block; height:100%; background:linear-gradient(90deg, var(--flare-dim), var(--flare)); transform-origin:0 50%; transition:transform 1.3s cubic-bezier(.2,.8,.2,1);}
-  .bar i.muted{background:var(--ink-3); opacity:.35;}
-  .js .grow:not(.in) .bar i{transform:scaleX(0);}
-  @media (prefers-reduced-motion: reduce){ .bar i{transition:none;} .js .grow:not(.in) .bar i{transform:none;} }
-
-  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
-  .chips span{font-size:13.5px; padding:6px 11px; border:1px solid var(--rule); border-radius:40px; background:#FFFCF4; color:var(--ink-2);}
-
-  /* ---------- Oleoducto ---------- */
-  .pipe{position:relative; margin:14px 0 26px;}
-  .pipe svg{display:block; width:100%; height:auto; overflow:visible;}
-  .pipe .tube{stroke:var(--paper-2); stroke-width:14; stroke-linecap:round; fill:none;}
-  .pipe .flow{stroke:url(#flowGrad); stroke-width:14; stroke-linecap:round; fill:none; transition:stroke-dashoffset 2.2s cubic-bezier(.3,.1,.2,1);}
-  .pipe .oil{stroke:var(--ink); stroke-width:3; stroke-dasharray:2 16; fill:none; stroke-linecap:round; animation:oil 1.4s linear infinite;}
-  @keyframes oil{to{stroke-dashoffset:-18;}}
-  .pipe .end{fill:var(--paper); stroke:var(--ink); stroke-width:2;}
-  .pipe text{font-family:var(--mono); font-size:14px; fill:var(--ink-3);}
-  .pipe .pct{font-family:var(--serif); font-size:40px; fill:var(--ink);}
-  @media (prefers-reduced-motion: reduce){ .pipe .oil{animation:none;} .pipe .flow{transition:none;} }
-  .pair{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
-  .pair .v{font-family:var(--serif); font-size:28px; font-weight:500; line-height:1.1;}
-  .pair .l{font-size:14px; color:var(--ink-2); margin-top:6px;}
-
-  /* ---------- Argentina LNG (banda) ---------- */
-  .lng{padding:clamp(56px, 8vw, 100px) 0;}
-  .lng .sec-head h2{color:var(--cream);}
-  .lng .sec-head p.intro{color:var(--cream-2);}
-  .lng .kicker{color:var(--sand-dim);}
-  .lng .strip{border-top-color:var(--flare); border-bottom-color:rgba(51,43,30,.12);}
-  .lng .strip > div{border-left-color:rgba(51,43,30,.12);}
-  .lng .strip > div:nth-child(n+3){border-top-color:rgba(51,43,30,.12);}
-  .lng .strip .v{color:var(--cream);}
-  .lng .strip .v small{color:var(--cream-3);}
-  .lng .strip .l{color:var(--cream-2);}
-  .lng .strip .d{color:var(--cream-3);}
-
-  /* ---------- La semana ---------- */
-  .week{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:44px;}
-  @media (max-width:760px){ .week{grid-template-columns:1fr;} }
-  .week .item{padding:26px 28px 28px; border-radius:3px; position:relative;}
-  .week .item.fact{background:var(--paper-2); color:var(--ink); box-shadow:inset 3px 0 0 var(--flare);}
-  .week .item.fact .kicker{color:var(--sand-dim);}
-  .week .item.q{background:var(--rock4);}
-  .week .item.q .kicker{color:var(--ink-2);}
-  .week .item p:not(.kicker){font-family:var(--serif); font-size:clamp(20px, 2vw, 24px); line-height:1.38; margin:0;}
-  .week .item.q p:not(.kicker){font-style:italic;}
-
-  .news{list-style:none; margin:0; padding:0; border-top:2px solid var(--ink);}
-  .news li{display:grid; grid-template-columns:120px minmax(0,1fr); gap:24px; padding:24px 0; border-bottom:1px solid var(--rule); transition:background .25s;}
-  .news li:hover{background:linear-gradient(90deg, transparent, rgba(252,226,155,.28) 20%, rgba(252,226,155,.28) 80%, transparent);}
-  @media (max-width:600px){ .news li{grid-template-columns:1fr; gap:6px;} }
-  .news time{font-family:var(--mono); font-size:12.5px; color:var(--ink-3); padding-top:6px; text-transform:uppercase; letter-spacing:.04em;}
-  .news h3{font-family:var(--serif); font-weight:500; font-size:clamp(21px, 2.1vw, 26px); line-height:1.2; margin:0; letter-spacing:-.01em;}
-  .news h3 a{text-decoration:none;}
-  .news h3 a:hover{text-decoration:underline; text-decoration-color:var(--flare); text-decoration-thickness:2px;}
-  .news p{margin:8px 0 0; color:var(--ink-2); font-size:15.5px; max-width:760px;}
-  .news .meta{display:flex; align-items:center; gap:16px; margin-top:10px; flex-wrap:wrap;}
-  .news .src{font-family:var(--mono); font-size:11.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.06em;}
-  .news .read-btn{font-size:15px; font-weight:700; color:var(--flare-dim); text-decoration:none;}
-  .news .read-btn:hover{color:var(--sand-dim); text-decoration:underline; text-underline-offset:3px;}
-
-  /* ---------- Termómetro ---------- */
-  .reading{margin-top:24px; padding:20px 22px; background:var(--paper-2); border-left:3px solid var(--flare); border-radius:0 3px 3px 0;}
-  .reading p:not(.kicker){margin:0; font-family:var(--serif); font-size:19px; line-height:1.45;}
-  .reading .kicker{margin-bottom:8px;}
+  .reading{margin-top:22px; padding:16px 18px; background:var(--paper-2); border-left:3px solid var(--flare);}
+  .reading p:not(.kicker){margin:0; font-family:var(--serif); font-size:18.5px; line-height:1.45;}
+  .reading .kicker{margin-bottom:6px;}
   .agenda{list-style:none; margin:0; padding:0; counter-reset:ag; border-top:1px solid var(--rule);}
-  .agenda li{counter-increment:ag; display:grid; grid-template-columns:44px minmax(0,1fr); gap:10px; padding:16px 0; border-bottom:1px solid var(--rule);}
-  .agenda li::before{content:counter(ag); font-family:var(--serif); font-size:30px; line-height:1; color:var(--flare-dim);}
-  .agenda b{display:block; font-weight:600; font-size:16px;}
-  .agenda p{margin:4px 0 0; font-size:15px; color:var(--ink-2);}
-  .agenda .when{display:inline-block; margin-top:8px; font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--gas-dim); background:rgba(79,168,198,.12); padding:3px 7px; border-radius:2px;}
+  .agenda li{counter-increment:ag; display:grid; grid-template-columns:34px minmax(0,1fr); gap:10px; padding:14px 0; border-bottom:1px solid var(--rule);}
+  .agenda li::before{content:counter(ag); font-family:var(--serif); font-size:26px; line-height:1; color:var(--flare-dim);}
+  .agenda b{display:block; font-weight:600; font-size:15.5px;}
+  .agenda p{margin:3px 0 0; font-size:15px; color:var(--ink-2);}
+  .agenda .when{display:inline-block; margin-top:6px; font-size:12px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:var(--gas-dim);}
 
-  /* ---------- Suscripción (banda) ---------- */
-  .subscribe{padding:clamp(56px, 8vw, 96px) 0;}
-  .subscribe .wrap{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:clamp(24px, 4vw, 56px); align-items:center; position:relative;}
-  @media (max-width:800px){ .subscribe .wrap{grid-template-columns:1fr;} }
-  .subscribe h2{font-family:var(--serif); font-weight:500; font-size:clamp(32px, 4.2vw, 52px); line-height:1.05; letter-spacing:-.02em; margin:0; color:var(--cream);}
-  .subscribe h2 em{color:var(--flare-dim);}
-  .subscribe p.lead{margin:12px 0 0; color:var(--cream-2); font-size:17px;}
-  .subscribe form{display:flex; gap:10px; flex-wrap:wrap;}
-  .subscribe input[type=email]{flex:1 1 240px; min-width:0; padding:15px 16px; font:inherit; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:2px;}
-  .subscribe input[type=email]::placeholder{color:var(--cream-3);}
-  .subscribe input[type=email]:focus{border-color:var(--flare); outline:none;}
-  .subscribe button{padding:15px 24px; font:inherit; font-size:16px; font-weight:600; color:var(--ink); background:var(--flare); border:0; border-radius:2px; cursor:pointer; transition:background .2s, transform .2s;}
-  .subscribe button:hover{background:var(--flare-dim); transform:translateY(-1px);}
+  /* ---------- Suscripción ---------- */
+  .subscribe{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:32px; align-items:center; background:var(--paper-2); padding:32px;}
+  @media (max-width:760px){ .subscribe{grid-template-columns:1fr; padding:24px 20px; gap:18px;} }
+  .subscribe h2{font-family:var(--serif); font-weight:500; font-size:28px; line-height:1.15; margin:0;}
+  .subscribe p{margin:8px 0 0; color:var(--ink-2);}
+  .subscribe form{display:flex; gap:8px; flex-wrap:wrap;}
+  .subscribe input[type=email]{flex:1 1 220px; min-width:0; padding:12px 14px; font:inherit; font-size:15px; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:3px;}
+  .subscribe input[type=email]:focus{border-color:var(--ink);}
+  .subscribe button{padding:12px 20px; font:inherit; font-size:15px; font-weight:600; color:var(--ink); background:var(--flare); border:0; border-radius:2px; cursor:pointer;}
+  .subscribe button:hover{background:var(--flare-dim);}
   .subscribe button[disabled]{opacity:.6; cursor:wait;}
-  .form-msg{flex-basis:100%; margin:6px 0 0; font-size:15px; min-height:1.2em;}
+  .form-msg{flex-basis:100%; margin:4px 0 0; font-size:14.5px; min-height:1.2em;}
   .form-msg.ok{color:var(--up); font-weight:600;}
-  .form-msg.err{color:var(--down);}
+  .form-msg.err{color:#B3261E;}
+  .fine{font-size:12.5px; color:var(--ink-3); flex-basis:100%; margin:2px 0 0;}
 
   /* ---------- Contacto ---------- */
-  .contact{padding:clamp(48px, 7vw, 88px) 0; text-align:center;}
-  .contact h2{font-family:var(--serif); font-weight:500; font-size:clamp(30px, 3.6vw, 42px); color:var(--sand); margin:0;}
-  .contact p{max-width:620px; margin:12px auto 26px; color:var(--ink-2); font-size:17px;}
-  .linkedin{display:inline-flex; align-items:center; gap:14px; padding:14px 24px; background:#FFFCF4; border:1px solid var(--rule); border-radius:3px; color:var(--ink); font-weight:600; font-size:16px; text-decoration:none; transition:border-color .2s, transform .2s, box-shadow .2s;}
-  .linkedin:hover{border-color:var(--flare); transform:translateY(-2px); box-shadow:0 14px 30px -18px rgba(51,43,30,.4);}
+  .contact{text-align:center; background:#FFFFFF; border:1px solid var(--rule); padding:40px 24px; margin-bottom:48px;}
+  .contact h2{font-family:var(--serif); font-weight:500; font-size:30px; color:var(--sand); margin:0;}
+  .contact p{max-width:620px; margin:10px auto 24px; color:var(--ink-2); font-size:16.5px;}
+  .linkedin{display:inline-flex; align-items:center; gap:14px; padding:12px 22px; background:var(--paper); border:1px solid var(--rule); border-radius:2px; color:var(--ink); font-weight:600; font-size:16px; text-decoration:none; transition:border-color .15s, background .15s;}
+  .linkedin:hover{border-color:var(--flare); background:var(--rock1);}
   .linkedin img{width:30px; height:30px; flex:none; border-radius:3px;}
+  @media (max-width:480px){ .linkedin{font-size:15px; padding:12px 16px; text-align:left;} }
 
   /* ---------- Pie ---------- */
-  footer{background:var(--paper); color:var(--cream-2); padding:clamp(44px, 6vw, 72px) 0 40px; font-size:14.5px; position:relative;}
-  footer .logo{font-family:var(--serif); font-weight:600; font-size:clamp(40px, 6vw, 72px); line-height:1; letter-spacing:-.02em; color:var(--cream); margin:0 0 16px;}
+  footer{padding:36px 0 48px; font-size:14px; color:var(--ink-2);}
+  footer .cols{grid-template-columns:1fr;}
+  footer .logo{font-family:var(--serif); font-weight:600; font-size:24px; color:var(--ink); margin:0 0 6px;}
   footer .logo span{color:var(--flare);}
   footer p{margin:0 0 10px;}
-  .install{display:none; margin-top:22px; padding:14px 16px; background:var(--paper-2); border-left:3px solid var(--flare); font-size:14.5px; color:var(--cream-2);}
+  footer h2{font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-3); margin:0 0 8px;}
+  footer ul{margin:0; padding:0; list-style:none;}
+  footer li{padding:3px 0;}
+  .install{display:none; margin-top:18px; padding:14px 16px; background:var(--paper-2); border-left:3px solid var(--flare); font-size:14.5px; color:var(--ink-2);}
   .install.show{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
   .install button{padding:8px 14px; font:inherit; font-size:14px; font-weight:600; color:var(--ink); background:var(--flare); border:0; border-radius:2px; cursor:pointer;}
-  footer .legal{margin-top:30px; padding-top:16px; border-top:1px solid rgba(51,43,30,.12); font-size:12.5px; color:var(--cream-3); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;}
-  footer .legal a{color:var(--cream-2);}
-  .strata{display:flex; height:6px;}
-  .strata span{flex:1;}
+  .install button:hover{background:var(--flare-dim);}
+  footer .legal{margin-top:28px; padding-top:14px; border-top:1px solid var(--rule); font-size:12.5px; color:var(--ink-3); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;}
 
   @media print{
-    nav.top, .subscribe, .basin{display:none;}
-    .hero, .band, footer{background:#fff; color:#000;}
+    nav.sections, .subscribe, .dateline{display:none;}
+    body{background:#fff;}
+    section.block{break-inside:avoid;}
+  }
+
+  /* ---------- Animaciones: números que suben y gráficos que crecen ---------- */
+  .chart .bar-r{transform-box:fill-box; transform-origin:50% 100%; transition:transform .9s cubic-bezier(.2,.8,.2,1);}
+  .chart .val, .chart .pt{transition:opacity .5s ease;}
+  .chart .line{transition:stroke-dashoffset 1.8s cubic-bezier(.4,.1,.2,1);}
+  .js .chart:not(.in) .bar-r{transform:scaleY(0);}
+  .js .chart:not(.in) .val, .js .chart:not(.in) .pt{opacity:0;}
+  .hbars .bar i, .progress .bar i{transform-origin:0 50%; transition:transform 1.3s cubic-bezier(.2,.8,.2,1);}
+  .js .hbars:not(.in) .bar i, .js .progress:not(.in) .bar i{transform:scaleX(0);}
+  @media (prefers-reduced-motion: reduce){
+    .chart .bar-r, .chart .val, .chart .pt, .chart .line, .hbars .bar i, .progress .bar i{transition:none;}
+    .js .chart:not(.in) .bar-r, .js .hbars:not(.in) .bar i, .js .progress:not(.in) .bar i{transform:none;}
+    .js .chart:not(.in) .val, .js .chart:not(.in) .pt{opacity:1;}
   }
 </style>
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
 
-<nav class="top" aria-label="Secciones">
+<div class="dateline">
   <div class="wrap">
-    <a class="brand" href="#top">Impulso <span>VM</span></a>
+    <span class="live">Edición del viernes 25 de septiembre de 2026</span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="logo">Impulso <span>VM</span></p>
+    <p class="tagline">Noticias, inversiones y el futuro de Vaca Muerta</p>
+  </div>
+</header>
+
+<nav class="sections" aria-label="Secciones">
+  <div class="wrap">
+    <a class="nav-brand" href="#contenido">Impulso <span>VM</span></a>
     <ul id="menu">
       <li><a href="#balanza">Balanza</a></li>
       <li><a href="#comercio">Exportaciones e importaciones</a></li>
@@ -427,334 +355,232 @@
     <a class="cta" href="#suscripcion">Suscribirme</a>
     <button class="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span><span></span></button>
   </div>
-  <div class="progress-line" id="progress" aria-hidden="true"></div>
 </nav>
+<div class="strata" aria-hidden="true"><span style="background:var(--rock1)"></span><span style="background:var(--rock2)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock4)"></span><span style="background:var(--rock2)"></span><span style="background:var(--flare-dim)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock1)"></span></div>
 
-<!-- PORTADA -->
-<header class="hero" id="top">
-  <div class="wrap">
-    <p class="edition">Edición del viernes 25 de septiembre de 2026</p>
-    <p class="kicker">Financiamiento</p>
-    <h1>Estados Unidos ofrece hasta USD 7.000 millones y casi todo apunta a <em>Argentina LNG</em></h1>
-    <div class="hero-grid">
+<main id="contenido" class="wrap">
+
+  <!-- PORTADA -->
+  <div class="front">
+    <article class="lead-story">
+      <p class="kicker">Financiamiento</p>
+      <h1>Estados Unidos ofrece hasta USD 7.000 millones a la Argentina y casi todo apunta a Argentina LNG</h1>
       <p class="deck">El Exim Bank puso sobre la mesa hasta USD 6.000 millones para el proyecto de GNL de YPF, Eni y XRG. En paralelo, el INDEC confirmó que el superávit energético de enero a agosto ya supera el de todo 2025.</p>
-      <div class="hero-actions">
-        <a class="cta" href="#resumen">La semana en 5 puntos ↓</a>
-        <a class="btn-ghost" href="#noticias">Ver las notas</a>
+      <div class="summary">
+        <h2>La semana en cinco puntos</h2>
+        <ol>
+          <li><span>Estados Unidos ofreció hasta USD 7.000 millones en financiamiento, con hasta USD 6.000 millones para Argentina LNG. <a href="#noticias">Ver más →</a></span></li>
+          <li><span>El superávit energético de enero a agosto (USD 7.834 M) ya supera al de todo 2025 (USD 7.815 M). <a href="#balanza">Ver más →</a></span></li>
+          <li><span>La producción de petróleo marcó récord en agosto: 930.500 b/d, más del 70% desde Vaca Muerta. <a href="#produccion">Ver más →</a></span></li>
+          <li><span>YPF sumó el primer set de fractura eléctrica de Vaca Muerta, de la mano de Halliburton. <a href="#noticias">Ver más →</a></span></li>
+          <li><span>El riesgo país cerró el viernes en 609 puntos, su nivel más alto en casi seis meses. <a href="#termometro">Ver más →</a></span></li>
+        </ol>
       </div>
-    </div>
-  </div>
+    </article>
 
-  <!-- Corte esquemático de la cuenca: el pozo baja y se fractura en la capa de Vaca Muerta -->
-  <svg class="basin" id="basin" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Dibujo esquemático de un pozo que baja hasta la capa de Vaca Muerta y continúa en horizontal con etapas de fractura.">
-    <defs>
-      <linearGradient id="vmGrad" x1="0" x2="1" y1="0" y2="0">
-        <stop offset="0" stop-color="#D99A1A"/>
-        <stop offset=".55" stop-color="#F0B429"/>
-        <stop offset="1" stop-color="#D99A1A"/>
-      </linearGradient>
-      <pattern id="shale" width="18" height="5" patternUnits="userSpaceOnUse">
-        <path d="M0 2.5h18" stroke="rgba(30,25,17,.16)" stroke-width="1"/>
-      </pattern>
-    </defs>
-    <!-- capas: se dibujan de arriba hacia abajo -->
-    <path d="M0 40 C300 35 700 48 1200 38 V300 H0Z" fill="#EFE5CC"/>
-    <path d="M0 104 C320 96 720 116 1200 100 V300 H0Z" fill="#E6D9BA"/>
-    <path d="M0 156 C300 148 740 168 1200 152 V300 H0Z" fill="#DCCCA7"/>
-    <path class="vm-band" d="M0 200 C300 192 760 212 1200 196 V300 H0Z" fill="url(#vmGrad)"/>
-    <path d="M0 200 C300 192 760 212 1200 196 V300 H0Z" fill="url(#shale)"/>
-    <path d="M0 254 C300 246 760 266 1200 250 V300 H0Z" fill="#D3C09A"/>
-    <path d="M0 290 C300 284 760 300 1200 288 V300 H0Z" fill="#C6B084"/>
-    <!-- superficie -->
-    <path d="M0 40 C300 35 700 48 1200 38" fill="none" stroke="rgba(51,43,30,.35)" stroke-width="1.5"/>
-    <!-- equipo de perforación -->
-    <g stroke="rgba(51,43,30,.85)" stroke-width="2" fill="none" stroke-linecap="round">
-      <path d="M367 40 L380 6 L393 40"/>
-      <path d="M372 28 H388 M375 18 H385"/>
-    </g>
-    <circle class="beacon" cx="380" cy="6" r="3.5"/>
-    <!-- pozo: vertical y rama horizontal -->
-    <path class="well" d="M380 40 L380 200 Q380 245 425 245 L1170 245"/>
-    <g id="stages"></g>
-  </svg>
-
-  <div class="hero-stats-wrap">
-    <div class="wrap hero-stats">
-      <div>
+    <aside class="figures" aria-labelledby="fig-title">
+      <h2 id="fig-title">Los números de agosto</h2>
+      <div class="fig">
         <div class="v num"><span data-count="930500">930.500</span><small>b/d</small></div>
-        <div class="l">Producción de petróleo del país, agosto</div>
-        <div class="d">Récord · +18,4% interanual</div>
+        <div class="l">Producción de petróleo del país, récord histórico</div>
+        <div class="d"><span class="up">+18,4%</span> interanual</div>
       </div>
-      <div>
+      <div class="fig">
         <div class="v num"><span data-count="658000">658.000</span><small>b/d</small></div>
         <div class="l">Petróleo que sale de Vaca Muerta</div>
-        <div class="d">Más del 70% del total</div>
+        <div class="d">Más del 70% del total nacional</div>
       </div>
-      <div>
+      <div class="fig">
         <div class="v num">USD <span data-count="7834">7.834</span><small>M</small></div>
         <div class="l">Superávit energético, enero a agosto</div>
-        <div class="d">Ya supera todo 2025</div>
+        <div class="d">Todo 2025 cerró en USD 7.815 M</div>
       </div>
-      <div>
-        <div class="v num"><span data-count="609">609</span><small>pb</small></div>
-        <div class="l">Riesgo país, cierre del viernes</div>
-        <div class="d warn">Máximo en casi seis meses</div>
-      </div>
-    </div>
+    </aside>
   </div>
-</header>
-
-<main id="contenido">
-
-  <!-- LA SEMANA EN CINCO PUNTOS -->
-  <section class="brief" id="resumen">
-    <div class="wrap">
-      <div class="brief-head reveal">
-        <h2>La semana en cinco puntos</h2>
-        <span>Leelo en 30 segundos</span>
-      </div>
-      <ol class="reveal">
-        <li><p>Estados Unidos ofreció hasta USD 7.000 millones en financiamiento, con hasta USD 6.000 millones para Argentina LNG.</p><a href="#noticias">Ver más →</a></li>
-        <li><p>El superávit energético de enero a agosto (USD 7.834 M) ya supera al de todo 2025 (USD 7.815 M).</p><a href="#balanza">Ver más →</a></li>
-        <li><p>La producción de petróleo marcó récord en agosto: 930.500 b/d, más del 70% desde Vaca Muerta.</p><a href="#produccion">Ver más →</a></li>
-        <li><p>YPF sumó el primer set de fractura eléctrica de Vaca Muerta, de la mano de Halliburton.</p><a href="#noticias">Ver más →</a></li>
-        <li><p>El riesgo país cerró el viernes en 609 puntos, su nivel más alto en casi seis meses.</p><a href="#termometro">Ver más →</a></li>
-      </ol>
-    </div>
-  </section>
 
   <!-- BALANZA -->
   <section class="block" id="balanza">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div>
-          <p class="kicker">Balanza energética</p>
-          <h2>En ocho meses, la energía ya dejó más dólares que en todo 2025</h2>
-        </div>
-        <p class="intro">El rubro combustibles y energía se consolidó como uno de los principales generadores netos de divisas del país.</p>
-      </div>
-
-      <div class="cols">
-        <figure class="panel reveal" style="margin:0;">
-          <p class="chart-title">Superávit energético mensual, 2026</p>
-          <p class="chart-sub">En millones de dólares</p>
-          <div class="chart" id="chart-balanza"></div>
-          <figcaption class="source">En agosto el saldo fue de USD 977 M: exportaciones por USD 1.494 M contra importaciones por USD 517 M. <b>Fuente:</b> INDEC, Intercambio Comercial Argentino (ICA), publicado el 18 de septiembre de 2026.</figcaption>
-        </figure>
-
-        <div class="reveal">
-          <h3 class="sub">Acumulado enero–agosto</h3>
-          <table class="data">
-            <tr><th scope="row">Exportaciones energéticas</th><td>USD 10.667 M<span class="note">+48,9% interanual</span></td></tr>
-            <tr><th scope="row">Importaciones energéticas</th><td>USD 2.833 M</td></tr>
-            <tr class="total"><th scope="row">Superávit 2026 (ene–ago)</th><td>USD 7.834 M</td></tr>
-            <tr><th scope="row">Superávit de todo 2025</th><td>USD 7.815 M</td></tr>
-          </table>
-          <p class="source">El acumulado es la suma de los ocho meses publicados por el INDEC: 618 + 697 + 1.090 + 1.391 + 1.543 + 611 + 892 + 977 = 7.834.</p>
-        </div>
-      </div>
+    <div class="sec-head">
+      <p class="kicker">Balanza energética</p>
+      <h2>En ocho meses, la energía ya dejó más dólares que en todo 2025</h2>
+      <p>El rubro combustibles y energía se consolidó como uno de los principales generadores netos de divisas del país.</p>
     </div>
-  </section>
 
-  <!-- EXPORTACIONES E IMPORTACIONES -->
-  <section class="block" id="comercio" style="border-bottom:0;">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div>
-          <p class="kicker">Comercio exterior</p>
-          <h2>Exportaciones e importaciones</h2>
-        </div>
-        <p class="intro">El superávit es la diferencia entre lo que el sector energético le vende al mundo y lo que le compra. Acá está cada flujo por separado.</p>
-      </div>
+    <div class="cols">
+      <figure style="margin:0;">
+        <p class="chart-title">Superávit energético mensual, 2026</p>
+        <p class="chart-sub">En millones de dólares</p>
+        <div class="chart" id="chart-balanza"></div>
+        <figcaption class="source">En agosto el saldo fue de USD 977 M: exportaciones por USD 1.494 M contra importaciones por USD 517 M. <b>Fuente:</b> INDEC, Intercambio Comercial Argentino (ICA), publicado el 18 de septiembre de 2026.</figcaption>
+      </figure>
 
-      <div class="strip reveal">
-        <div>
-          <div class="v num">USD <span data-count="1494">1.494</span><small>M</small></div>
-          <div class="l">Exportaciones, agosto</div>
-          <div class="d"><span class="up">+41,2%</span> interanual</div>
-        </div>
-        <div>
-          <div class="v num">USD <span data-count="517">517</span><small>M</small></div>
-          <div class="l">Importaciones, agosto</div>
-          <div class="d">+68,5% interanual</div>
-        </div>
-        <div>
-          <div class="v num">USD <span data-count="10667">10.667</span><small>M</small></div>
-          <div class="l">Exportaciones, ene–ago</div>
-          <div class="d"><span class="up">+48,9%</span> interanual</div>
-        </div>
-        <div>
-          <div class="v num">USD <span data-count="2833">2.833</span><small>M</small></div>
-          <div class="l">Importaciones, ene–ago</div>
-          <div class="d">Estimado: exportaciones menos superávit</div>
-        </div>
-      </div>
-
-      <div class="cols even" style="margin-top:44px;">
-        <div class="reveal">
-          <h3 class="sub">Qué mueve cada flujo en agosto</h3>
-          <table class="data">
-            <tr><th scope="row">Exportaciones</th><td class="wrap-ok">Petróleo crudo, carburantes y resto de combustibles</td></tr>
-            <tr><th scope="row">Importaciones</th><td class="wrap-ok">GNL, energía eléctrica desde Brasil y combustibles elaborados</td></tr>
-          </table>
-        </div>
-        <div class="reveal">
-          <h3 class="sub">Peso de la energía en el comercio total</h3>
-          <table class="data">
-            <tr><th scope="row">Superávit comercial del país, agosto</th><td>USD 2.187 M</td></tr>
-            <tr><th scope="row">Parte explicada por energía</th><td>44,7%</td></tr>
-            <tr><th scope="row">Superávit comercial, ene–ago</th><td>USD 18.249 M</td></tr>
-            <tr><th scope="row">Parte explicada por energía</th><td>42,9%</td></tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CIFRA DESTACADA -->
-  <aside class="band bigstat" aria-label="Cifra destacada">
-    <div class="wrap reveal">
-      <div class="huge num"><span data-count="44.7" data-dec="1">44,7</span><small>%</small></div>
       <div>
-        <p class="kicker">Agosto 2026</p>
-        <p>Casi la mitad del superávit comercial argentino de agosto lo explicó, sola, la balanza energética. Dicho de otro modo: <b>en buena medida, Vaca Muerta.</b></p>
+        <h3 class="sub">Acumulado enero–agosto</h3>
+        <table class="data">
+          <tr><th scope="row">Exportaciones energéticas</th><td>USD 10.667 M<span class="note">+48,9% interanual</span></td></tr>
+          <tr><th scope="row">Importaciones energéticas</th><td>USD 2.833 M</td></tr>
+          <tr class="total"><th scope="row">Superávit 2026 (ene–ago)</th><td>USD 7.834 M</td></tr>
+          <tr><th scope="row">Superávit de todo 2025</th><td>USD 7.815 M</td></tr>
+        </table>
+        <p class="source">El acumulado es la suma de los ocho meses publicados por el INDEC: 618 + 697 + 1.090 + 1.391 + 1.543 + 611 + 892 + 977 = 7.834.</p>
       </div>
     </div>
-  </aside>
+  </section>
+
+  <!-- COMERCIO -->
+  <section class="block" id="comercio">
+    <div class="sec-head">
+      <p class="kicker">Comercio exterior</p>
+      <h2>Exportaciones e importaciones</h2>
+      <p>El superávit es la diferencia entre lo que el sector energético le vende al mundo y lo que le compra. Acá está cada flujo por separado.</p>
+    </div>
+
+    <div class="strip">
+      <div>
+        <div class="v num">USD <span data-count="1494">1.494</span><small>M</small></div>
+        <div class="l">Exportaciones, agosto</div>
+        <div class="d"><span class="up">+41,2%</span> interanual</div>
+      </div>
+      <div>
+        <div class="v num">USD <span data-count="517">517</span><small>M</small></div>
+        <div class="l">Importaciones, agosto</div>
+        <div class="d">+68,5% interanual</div>
+      </div>
+      <div>
+        <div class="v num">USD <span data-count="10667">10.667</span><small>M</small></div>
+        <div class="l">Exportaciones, ene–ago</div>
+        <div class="d"><span class="up">+48,9%</span> interanual</div>
+      </div>
+      <div>
+        <div class="v num">USD <span data-count="2833">2.833</span><small>M</small></div>
+        <div class="l">Importaciones, ene–ago</div>
+        <div class="d">Estimado: exportaciones menos superávit</div>
+      </div>
+    </div>
+
+    <div class="cols even" style="margin-top:32px;">
+      <div>
+        <h3 class="sub">Qué mueve cada flujo en agosto</h3>
+        <table class="data">
+          <tr><th scope="row">Exportaciones</th><td class="wrap-ok">Petróleo crudo, carburantes y resto de combustibles</td></tr>
+          <tr><th scope="row">Importaciones</th><td class="wrap-ok">GNL, energía eléctrica desde Brasil y combustibles elaborados</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3 class="sub">Peso de la energía en el comercio total</h3>
+        <table class="data">
+          <tr><th scope="row">Superávit comercial del país, agosto</th><td>USD 2.187 M</td></tr>
+          <tr><th scope="row">Parte explicada por energía</th><td>44,7%</td></tr>
+          <tr><th scope="row">Superávit comercial, ene–ago</th><td>USD 18.249 M</td></tr>
+          <tr><th scope="row">Parte explicada por energía</th><td>42,9%</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="callout">Casi la mitad del superávit comercial argentino de agosto lo explicó, sola, la balanza energética. Dicho de otro modo: <b>en buena medida, Vaca Muerta.</b></p>
+  </section>
 
   <!-- PRODUCCIÓN -->
   <section class="block" id="produccion">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div>
-          <p class="kicker">Producción</p>
-          <h2>Siete de cada diez barriles ya salen de Vaca Muerta</h2>
-        </div>
-        <p class="intro">La formación shale de Neuquén concentra más del 70% del petróleo y cerca del 73% del gas del país.</p>
-      </div>
+    <div class="sec-head">
+      <p class="kicker">Producción</p>
+      <h2>Siete de cada diez barriles ya salen de Vaca Muerta</h2>
+      <p>La formación shale de Neuquén concentra más del 70% del petróleo y cerca del 73% del gas del país.</p>
+    </div>
 
-      <div class="cols">
-        <figure class="panel reveal" style="margin:0;">
-          <p class="chart-title">Producción de petróleo, 2026</p>
-          <p class="chart-sub">En miles de barriles diarios</p>
-          <div class="chart" id="chart-produccion"></div>
-          <figcaption class="source">Se grafican los meses con dato publicado. <b>Fuente:</b> Secretaría de Energía.</figcaption>
-        </figure>
+    <div class="cols">
+      <figure style="margin:0;">
+        <p class="chart-title">Producción de petróleo, 2026</p>
+        <p class="chart-sub">En miles de barriles diarios</p>
+        <div class="chart" id="chart-produccion"></div>
+        <figcaption class="source">Se grafican los meses con dato publicado. <b>Fuente:</b> Secretaría de Energía.</figcaption>
+      </figure>
 
-        <div class="reveal">
-          <h3 class="sub">La cuenca, en agosto</h3>
-          <table class="data">
-            <tr><th scope="row">Producción nacional de petróleo</th><td>930.500 b/d</td></tr>
-            <tr><th scope="row">Variación interanual</th><td class="up">+18,4%</td></tr>
-            <tr><th scope="row">Aporte de Vaca Muerta</th><td>658.000 b/d</td></tr>
-            <tr><th scope="row">Participación de Vaca Muerta</th><td>más del 70%</td></tr>
-            <tr><th scope="row">Recursos técnicamente recuperables</th><td>30.170 M bbl</td></tr>
-          </table>
-        </div>
+      <div>
+        <h3 class="sub">La cuenca, en agosto</h3>
+        <table class="data">
+          <tr><th scope="row">Producción nacional de petróleo</th><td>930.500 b/d</td></tr>
+          <tr><th scope="row">Variación interanual</th><td class="up">+18,4%</td></tr>
+          <tr><th scope="row">Aporte de Vaca Muerta</th><td>658.000 b/d</td></tr>
+          <tr><th scope="row">Participación de Vaca Muerta</th><td>más del 70%</td></tr>
+          <tr><th scope="row">Recursos técnicamente recuperables</th><td>30.170 M bbl</td></tr>
+        </table>
       </div>
     </div>
   </section>
 
   <!-- EMPRESAS -->
   <section class="block" id="empresas">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div>
-          <p class="kicker">Empresas</p>
-          <h2>Quiénes pisan fuerte</h2>
-        </div>
-        <p class="intro">YPF sigue al frente de la actividad no convencional, pero en 2026 Pluspetrol trepó al segundo lugar y dejó atrás a Vista y Tecpetrol.</p>
+    <div class="sec-head">
+      <p class="kicker">Empresas</p>
+      <h2>Quiénes pisan fuerte</h2>
+      <p>YPF sigue al frente de la actividad no convencional, pero en 2026 Pluspetrol trepó al segundo lugar y dejó atrás a Vista y Tecpetrol.</p>
+    </div>
+
+    <div class="cols">
+      <div>
+        <p class="chart-title">Participación en etapas de fractura</p>
+        <p class="chart-sub">Acumulado 2026</p>
+        <ul class="hbars">
+          <li><div class="row"><span>YPF</span><span>47,5%</span></div><div class="bar"><i style="width:47.5%"></i></div></li>
+          <li><div class="row"><span>Pluspetrol</span><span>≈12,0%</span></div><div class="bar"><i style="width:12%"></i></div></li>
+          <li><div class="row"><span>Vista Energy</span><span>≈10,3%</span></div><div class="bar"><i style="width:10.3%"></i></div></li>
+          <li><div class="row"><span>Resto <em>(Tecpetrol, PAE, Shell, Chevron y otras)</em></span><span>≈30,2%</span></div><div class="bar"><i class="muted" style="width:30.2%"></i></div></li>
+        </ul>
+        <p class="source">Pluspetrol se afianzó como segundo actor gracias a los activos que le compró a ExxonMobil y sacó a Tecpetrol del podio. Base: 14.958 etapas del primer semestre de 2026 (YPF 7.065, Pluspetrol 1.797, Vista 1.545). El porcentaje de YPF está confirmado también para el acumulado a agosto.</p>
       </div>
 
-      <div class="cols">
-        <div class="panel reveal grow">
-          <p class="chart-title">Participación en etapas de fractura</p>
-          <p class="chart-sub">Acumulado 2026</p>
-          <ul class="hbars">
-            <li><div class="row"><span>YPF</span><span>47,5%</span></div><div class="bar"><i style="width:47.5%"></i></div></li>
-            <li><div class="row"><span>Pluspetrol</span><span>≈12,0%</span></div><div class="bar"><i style="width:12%"></i></div></li>
-            <li><div class="row"><span>Vista Energy</span><span>≈10,3%</span></div><div class="bar"><i style="width:10.3%"></i></div></li>
-            <li><div class="row"><span>Resto <em>(Tecpetrol, PAE, Shell, Chevron y otras)</em></span><span>≈30,2%</span></div><div class="bar"><i class="muted" style="width:30.2%"></i></div></li>
-          </ul>
-          <p class="source">Pluspetrol se afianzó como segundo actor gracias a los activos que le compró a ExxonMobil y sacó a Tecpetrol del podio. Base: 14.958 etapas del primer semestre de 2026 (YPF 7.065, Pluspetrol 1.797, Vista 1.545). El porcentaje de YPF está confirmado también para el acumulado a agosto.</p>
-        </div>
-
-        <div class="reveal">
-          <h3 class="sub">YPF, el líder</h3>
-          <table class="data">
-            <tr><th scope="row">Producción de petróleo, agosto</th><td>373.214 b/d</td></tr>
-            <tr><th scope="row">Peso de la Cuenca Neuquina en YPF</th><td>85%</td></tr>
-            <tr><th scope="row">Meta de largo plazo</th><td>2 M boe/d</td></tr>
-          </table>
-          <h3 class="sub" style="margin-top:32px;">Socios del oleoducto VMOS</h3>
-          <div class="chips"><span>YPF</span><span>PAE</span><span>Vista</span><span>Pampa</span><span>Pluspetrol</span><span>Chevron</span><span>Tecpetrol</span><span>Shell</span></div>
-        </div>
+      <div>
+        <h3 class="sub">YPF, el líder</h3>
+        <table class="data">
+          <tr><th scope="row">Producción de petróleo, agosto</th><td>373.214 b/d</td></tr>
+          <tr><th scope="row">Peso de la Cuenca Neuquina en YPF</th><td>85%</td></tr>
+          <tr><th scope="row">Meta de largo plazo</th><td>2 M boe/d</td></tr>
+        </table>
+        <h3 class="sub" style="margin-top:26px;">Socios del oleoducto VMOS</h3>
+        <div class="chips"><span>YPF</span><span>PAE</span><span>Vista</span><span>Pampa</span><span>Pluspetrol</span><span>Chevron</span><span>Tecpetrol</span><span>Shell</span></div>
       </div>
     </div>
   </section>
 
   <!-- INFRAESTRUCTURA -->
-  <section class="block" id="infraestructura" style="border-bottom:0;">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div>
-          <p class="kicker">Infraestructura y RIGI</p>
-          <h2>El cuello de botella está en los caños</h2>
+  <section class="block" id="infraestructura">
+    <div class="sec-head">
+      <p class="kicker">Infraestructura y RIGI</p>
+      <h2>El cuello de botella está en los caños</h2>
+      <p>Hoy el principal desafío de la cuenca es la capacidad para llevar el crudo hasta los puertos y convertir el gas en exportaciones a gran escala.</p>
+    </div>
+
+    <div class="cols even">
+      <div>
+        <h3 class="sub">Oleoducto Vaca Muerta Oil Sur (VMOS)</h3>
+        <div class="progress">
+          <div class="row"><span>Avance de obra</span><span class="num"><b>80%</b></span></div>
+          <div class="bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Avance de obra del VMOS"><i style="width:80%"></i></div>
         </div>
-        <p class="intro">Hoy el principal desafío de la cuenca es la capacidad para llevar el crudo hasta los puertos y convertir el gas en exportaciones a gran escala.</p>
+        <div class="pair">
+          <div><div class="v num">USD 2.900 M</div><div class="l">Inversión total del consorcio</div></div>
+          <div><div class="v">Principios de 2027</div><div class="l">Primer embarque en Punta Colorada. Antes estaba previsto para fines de 2026.</div></div>
+        </div>
+        <p class="source"><b>Novedad:</b> VMOS colocó su primer bono en el mercado local por USD 233,6 millones (liquidación el 23/9), que se suma al préstamo sindicado de USD 2.000 M de 2025.</p>
       </div>
 
-      <div class="cols even">
-        <div class="panel reveal">
-          <p class="chart-title">Oleoducto Vaca Muerta Oil Sur (VMOS)</p>
-          <p class="chart-sub">Avance de obra</p>
-          <div class="pipe" id="pipe" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Avance de obra del VMOS: 80%">
-            <svg viewBox="0 0 500 104" aria-hidden="true">
-              <defs>
-                <linearGradient id="flowGrad" x1="0" x2="1"><stop offset="0" stop-color="#D99A1A"/><stop offset="1" stop-color="#F0B429"/></linearGradient>
-              </defs>
-              <text class="pct" x="0" y="34" id="pipePct">80%</text>
-              <path class="tube" d="M14 66 H486"/>
-              <path class="flow" id="pipeFlow" d="M14 66 H486"/>
-              <path class="oil" id="pipeOil" d="M14 66 H392"/>
-              <circle class="end" cx="14" cy="66" r="8"/>
-              <circle class="end" cx="486" cy="66" r="8"/>
-              <text x="0" y="100">Vaca Muerta</text>
-              <text x="500" y="100" text-anchor="end">Punta Colorada</text>
-            </svg>
-          </div>
-          <div class="pair">
-            <div><div class="v num">USD 2.900 M</div><div class="l">Inversión total del consorcio</div></div>
-            <div><div class="v">Principios de 2027</div><div class="l">Primer embarque en Punta Colorada. Antes estaba previsto para fines de 2026.</div></div>
-          </div>
-          <p class="source"><b>Novedad:</b> VMOS colocó su primer bono en el mercado local por USD 233,6 millones (liquidación el 23/9), que se suma al préstamo sindicado de USD 2.000 M de 2025.</p>
-        </div>
-
-        <div class="reveal">
-          <h3 class="sub">Proyectos RIGI destacados</h3>
-          <table class="data">
-            <tr><th scope="row">LLL Oil (YPF)</th><td>USD 25.000 M</td></tr>
-            <tr><th scope="row">Los Toldos II Este (Tecpetrol)<span class="tag-new">Nuevo · 19/8</span></th><td>USD 6.400 M</td></tr>
-            <tr><th scope="row">Rincón de Aranda (Pampa Energía)</th><td>USD 4.500 M</td></tr>
-            <tr><th scope="row">Pozos planificados en LLL Oil</th><td>1.152</td></tr>
-            <tr><th scope="row">Superávit energía + minería proyectado a 2030</th><td>USD 51.000 M</td></tr>
-          </table>
-        </div>
+      <div>
+        <h3 class="sub">Proyectos RIGI destacados</h3>
+        <table class="data">
+          <tr><th scope="row">LLL Oil (YPF)</th><td>USD 25.000 M</td></tr>
+          <tr><th scope="row">Los Toldos II Este (Tecpetrol)<span class="tag-new">Nuevo · 19/8</span></th><td>USD 6.400 M</td></tr>
+          <tr><th scope="row">Rincón de Aranda (Pampa Energía)</th><td>USD 4.500 M</td></tr>
+          <tr><th scope="row">Pozos planificados en LLL Oil</th><td>1.152</td></tr>
+          <tr><th scope="row">Superávit energía + minería proyectado a 2030</th><td>USD 51.000 M</td></tr>
+        </table>
       </div>
     </div>
-  </section>
 
-  <!-- ARGENTINA LNG -->
-  <section class="band lng" aria-labelledby="lng-title">
-    <div class="wrap" style="position:relative;">
-      <div class="sec-head reveal">
-        <div>
-          <p class="kicker">Gas natural licuado</p>
-          <h2 id="lng-title">Argentina LNG, el salto exportador del gas</h2>
-        </div>
-        <p class="intro">YPF, la italiana Eni y la emiratí XRG avanzan hacia la decisión final de inversión (FID), acelerada por el contexto geopolítico. Junto con VMOS, es el otro gran proyecto que va a cambiar lo que Vaca Muerta le vende al mundo.</p>
-      </div>
-      <div class="strip reveal">
+    <div class="feature">
+      <p class="kicker">Gas natural licuado</p>
+      <h3>Argentina LNG, el salto exportador del gas</h3>
+      <p>YPF, la italiana Eni y la emiratí XRG avanzan hacia la decisión final de inversión (FID), acelerada por el contexto geopolítico. Junto con VMOS, es el otro gran proyecto que va a cambiar lo que Vaca Muerta le vende al mundo.</p>
+      <div class="strip">
         <div>
           <div class="v num">USD <span data-count="51000">51.000</span><small>M</small></div>
           <div class="l">Inversión proyectada a 20 años</div>
@@ -781,113 +607,110 @@
 
   <!-- LA SEMANA -->
   <section class="block" id="noticias">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div>
-          <p class="kicker">Semana al 25 de septiembre</p>
-          <h2>Lo que pasó esta semana</h2>
-        </div>
-      </div>
-
-      <div class="week reveal">
-        <div class="item fact">
-          <p class="kicker">El hecho</p>
-          <p>Estados Unidos y la Argentina sellaron un acuerdo de financiamiento de hasta USD 7.000 millones a través del Exim Bank. Unos USD 6.000 millones irían a Argentina LNG, el megaproyecto de YPF, Eni y XRG.</p>
-        </div>
-        <div class="item q">
-          <p class="kicker">La pregunta</p>
-          <p>¿Alcanza el respaldo de Washington para que Argentina LNG tome su decisión final de inversión antes de fin de año?</p>
-        </div>
-      </div>
-
-      <ul class="news">
-        <li class="reveal">
-          <time datetime="2026-09-23">23 sep</time>
-          <div>
-            <h3><a href="https://www.bloomberglinea.com/latinoamerica/argentina/vaca-muerta-busca-nuevo-salto-exportador-argentina-y-eeuu-preparan-acuerdo-por-mas-de-us6000-millones/" target="_blank" rel="noopener">Argentina y EE.UU. sellan un acuerdo de hasta USD 7.000 millones para infraestructura y energía</a></h3>
-            <p>El Exim Bank ofreció, de forma indicativa, hasta USD 6.000 millones para Argentina LNG. Se firmó en Nueva York junto con el lanzamiento del "Corredor Andes-Atlántico".</p>
-            <div class="meta"><span class="src">Bloomberg Línea</span><a class="read-btn" href="https://www.bloomberglinea.com/latinoamerica/argentina/vaca-muerta-busca-nuevo-salto-exportador-argentina-y-eeuu-preparan-acuerdo-por-mas-de-us6000-millones/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a></div>
-          </div>
-        </li>
-        <li class="reveal">
-          <time datetime="2026-09-23">23–24 sep</time>
-          <div>
-            <h3><a href="https://cholilaonline.ar/2026/09/ypf-primer-set-fractura-electrica-vaca-muerta.html" target="_blank" rel="noopener">YPF suma el primer set de fractura eléctrica de Vaca Muerta, de la mano de Halliburton</a></h3>
-            <p>La petrolera apuesta a ganar productividad con nueva tecnología, dentro de un contrato multianual de servicios de completación con Halliburton.</p>
-            <div class="meta"><span class="src">Cholila Online</span><a class="read-btn" href="https://cholilaonline.ar/2026/09/ypf-primer-set-fractura-electrica-vaca-muerta.html" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a></div>
-          </div>
-        </li>
-        <li class="reveal">
-          <time datetime="2026-09-23">23–24 sep</time>
-          <div>
-            <h3><a href="https://www.riotimesonline.com/argentina-markets-merval-peso-thursday-september-24-2026/" target="_blank" rel="noopener">El riesgo país sube a 566 puntos, pero YPF resiste en Wall Street</a></h3>
-            <p>Mientras los bancos lideraban las bajas del Merval, las acciones de YPF avanzaron de la mano de las expectativas por el plan de exportación de gas.</p>
-            <div class="meta"><span class="src">Rio Times</span><a class="read-btn" href="https://www.riotimesonline.com/argentina-markets-merval-peso-thursday-september-24-2026/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a></div>
-          </div>
-        </li>
-        <li class="reveal">
-          <time datetime="2026-09-21">21 sep</time>
-          <div>
-            <h3><a href="https://www.infobae.com/economia/2026/09/21/superavit-energetico-record-en-8-meses-la-argentina-ya-supero-lo-que-genero-en-todo-2025/" target="_blank" rel="noopener">El superávit energético de 2026 ya rompió el récord de 2025, y faltan cuatro meses</a></h3>
-            <p>Entre enero y agosto la balanza de combustibles y energía acumuló USD 7.834 millones, por encima de los USD 7.815 millones de todo el año pasado.</p>
-            <div class="meta"><span class="src">Infobae</span><a class="read-btn" href="https://www.infobae.com/economia/2026/09/21/superavit-energetico-record-en-8-meses-la-argentina-ya-supero-lo-que-genero-en-todo-2025/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a></div>
-          </div>
-        </li>
-        <li class="reveal">
-          <time datetime="2026-09-18">18 sep</time>
-          <div>
-            <h3><a href="https://www.lanacion.com.ar/economia/el-salto-en-la-exportacion-de-energia-impulso-un-superavit-comercial-de-us2187-millones-en-agosto-nid18092026/" target="_blank" rel="noopener">El INDEC confirma un superávit energético de USD 977 millones en agosto</a></h3>
-            <p>La balanza de combustibles y energía explicó, sola, el 44,7% del superávit comercial total del mes.</p>
-            <div class="meta"><span class="src">La Nación</span><a class="read-btn" href="https://www.lanacion.com.ar/economia/el-salto-en-la-exportacion-de-energia-impulso-un-superavit-comercial-de-us2187-millones-en-agosto-nid18092026/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a></div>
-          </div>
-        </li>
-      </ul>
+    <div class="sec-head">
+      <p class="kicker">Semana al 25 de septiembre</p>
+      <h2>Lo que pasó esta semana</h2>
     </div>
+
+    <div class="week">
+      <div class="item">
+        <p class="kicker">El hecho</p>
+        <p>Estados Unidos y la Argentina sellaron un acuerdo de financiamiento de hasta USD 7.000 millones a través del Exim Bank. Unos USD 6.000 millones irían a Argentina LNG, el megaproyecto de YPF, Eni y XRG.</p>
+      </div>
+      <div class="item q">
+        <p class="kicker">La pregunta</p>
+        <p>¿Alcanza el respaldo de Washington para que Argentina LNG tome su decisión final de inversión antes de fin de año?</p>
+      </div>
+    </div>
+
+    <ul class="news">
+      <li>
+        <time datetime="2026-09-23">23 sep</time>
+        <div>
+          <h3><a href="https://www.bloomberglinea.com/latinoamerica/argentina/vaca-muerta-busca-nuevo-salto-exportador-argentina-y-eeuu-preparan-acuerdo-por-mas-de-us6000-millones/" target="_blank" rel="noopener">Argentina y EE.UU. sellan un acuerdo de hasta USD 7.000 millones para infraestructura y energía</a></h3>
+          <p>El Exim Bank ofreció, de forma indicativa, hasta USD 6.000 millones para Argentina LNG. Se firmó en Nueva York junto con el lanzamiento del "Corredor Andes-Atlántico".</p>
+          <div class="src">Bloomberg Línea</div>
+          <a class="read-btn" href="https://www.bloomberglinea.com/latinoamerica/argentina/vaca-muerta-busca-nuevo-salto-exportador-argentina-y-eeuu-preparan-acuerdo-por-mas-de-us6000-millones/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
+        </div>
+      </li>
+      <li>
+        <time datetime="2026-09-23">23–24 sep</time>
+        <div>
+          <h3><a href="https://cholilaonline.ar/2026/09/ypf-primer-set-fractura-electrica-vaca-muerta.html" target="_blank" rel="noopener">YPF suma el primer set de fractura eléctrica de Vaca Muerta, de la mano de Halliburton</a></h3>
+          <p>La petrolera apuesta a ganar productividad con nueva tecnología, dentro de un contrato multianual de servicios de completación con Halliburton.</p>
+          <div class="src">Cholila Online</div>
+          <a class="read-btn" href="https://cholilaonline.ar/2026/09/ypf-primer-set-fractura-electrica-vaca-muerta.html" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
+        </div>
+      </li>
+      <li>
+        <time datetime="2026-09-23">23–24 sep</time>
+        <div>
+          <h3><a href="https://www.riotimesonline.com/argentina-markets-merval-peso-thursday-september-24-2026/" target="_blank" rel="noopener">El riesgo país sube a 566 puntos, pero YPF resiste en Wall Street</a></h3>
+          <p>Mientras los bancos lideraban las bajas del Merval, las acciones de YPF avanzaron de la mano de las expectativas por el plan de exportación de gas.</p>
+          <div class="src">Rio Times</div>
+          <a class="read-btn" href="https://www.riotimesonline.com/argentina-markets-merval-peso-thursday-september-24-2026/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
+        </div>
+      </li>
+      <li>
+        <time datetime="2026-09-21">21 sep</time>
+        <div>
+          <h3><a href="https://www.infobae.com/economia/2026/09/21/superavit-energetico-record-en-8-meses-la-argentina-ya-supero-lo-que-genero-en-todo-2025/" target="_blank" rel="noopener">El superávit energético de 2026 ya rompió el récord de 2025, y faltan cuatro meses</a></h3>
+          <p>Entre enero y agosto la balanza de combustibles y energía acumuló USD 7.834 millones, por encima de los USD 7.815 millones de todo el año pasado.</p>
+          <div class="src">Infobae</div>
+          <a class="read-btn" href="https://www.infobae.com/economia/2026/09/21/superavit-energetico-record-en-8-meses-la-argentina-ya-supero-lo-que-genero-en-todo-2025/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
+        </div>
+      </li>
+      <li>
+        <time datetime="2026-09-18">18 sep</time>
+        <div>
+          <h3><a href="https://www.lanacion.com.ar/economia/el-salto-en-la-exportacion-de-energia-impulso-un-superavit-comercial-de-us2187-millones-en-agosto-nid18092026/" target="_blank" rel="noopener">El INDEC confirma un superávit energético de USD 977 millones en agosto</a></h3>
+          <p>La balanza de combustibles y energía explicó, sola, el 44,7% del superávit comercial total del mes.</p>
+          <div class="src">La Nación</div>
+          <a class="read-btn" href="https://www.lanacion.com.ar/economia/el-salto-en-la-exportacion-de-energia-impulso-un-superavit-comercial-de-us2187-millones-en-agosto-nid18092026/" target="_blank" rel="noopener">Leer nota <span aria-hidden="true">↗</span></a>
+        </div>
+      </li>
+    </ul>
   </section>
 
   <!-- TERMÓMETRO DEL VIERNES -->
-  <section class="block" id="termometro" style="border-bottom:0;">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div>
-          <p class="kicker">El termómetro del viernes</p>
-          <h2>Cómo cerró la semana y qué viene</h2>
+  <section class="block" id="termometro">
+    <div class="sec-head">
+      <p class="kicker">El termómetro del viernes</p>
+      <h2>Cómo cerró la semana y qué viene</h2>
+      <p>Los precios y las acciones que mueven a Vaca Muerta al cierre del viernes, y los temas que vamos a seguir en las próximas semanas.</p>
+    </div>
+
+    <div class="cols even">
+      <div>
+        <h3 class="sub">Mercado al cierre</h3>
+        <table class="data" id="tabla-termometro"></table>
+        <p class="source">Variación contra el cierre del viernes anterior. En verde, lo que favorece a Vaca Muerta; en rojo, lo que juega en contra.</p>
+        <div class="reading">
+          <p class="kicker">La lectura</p>
+          <p>El riesgo país cerró el viernes en 609 puntos, su nivel más alto en casi seis meses. Aun así, a mitad de semana YPF resistió en Wall Street mientras caían los bancos: el mercado separa a la petrolera del resto de los activos argentinos y pesa más la expectativa por Argentina LNG que el ruido macro.</p>
         </div>
-        <p class="intro">Los precios y las acciones que mueven a Vaca Muerta al cierre del viernes, y los temas que vamos a seguir en las próximas semanas.</p>
       </div>
 
-      <div class="cols even">
-        <div class="reveal">
-          <h3 class="sub">Mercado al cierre</h3>
-          <table class="data" id="tabla-termometro"></table>
-          <p class="source">Variación contra el cierre del viernes anterior. En verde, lo que favorece a Vaca Muerta; en rojo, lo que juega en contra.</p>
-          <div class="reading">
-            <p class="kicker">La lectura</p>
-            <p>El riesgo país cerró el viernes en 609 puntos, su nivel más alto en casi seis meses. Aun así, a mitad de semana YPF resistió en Wall Street mientras caían los bancos: el mercado separa a la petrolera del resto de los activos argentinos y pesa más la expectativa por Argentina LNG que el ruido macro.</p>
-          </div>
-        </div>
-
-        <div class="reveal">
-          <h3 class="sub">Lo que viene</h3>
-          <ol class="agenda">
-            <li><div><b>Argentina LNG y el Exim Bank</b><p>Cómo se instrumenta el financiamiento de hasta USD 6.000 millones y si aparecen señales concretas sobre la decisión final de inversión.</p><span class="when">En seguimiento</span></div></li>
-            <li><div><b>Producción de septiembre</b><p>La Secretaría de Energía publica el dato del mes. La pregunta: ¿se sostiene el récord de 930.500 b/d?</p><span class="when">Octubre</span></div></li>
-            <li><div><b>Balanza comercial de septiembre</b><p>El INDEC dirá cuánto suma septiembre a un superávit energético que ya superó todo 2025.</p><span class="when">Segunda quincena de octubre</span></div></li>
-            <li><div><b>Oleoducto VMOS</b><p>Con la obra al 80%, cualquier novedad sobre el cronograma del primer embarque en Punta Colorada.</p><span class="when">En seguimiento</span></div></li>
-          </ol>
-        </div>
+      <div>
+        <h3 class="sub">Lo que viene</h3>
+        <ol class="agenda">
+          <li><div><b>Argentina LNG y el Exim Bank</b><p>Cómo se instrumenta el financiamiento de hasta USD 6.000 millones y si aparecen señales concretas sobre la decisión final de inversión.</p><span class="when">En seguimiento</span></div></li>
+          <li><div><b>Producción de septiembre</b><p>La Secretaría de Energía publica el dato del mes. La pregunta: ¿se sostiene el récord de 930.500 b/d?</p><span class="when">Octubre</span></div></li>
+          <li><div><b>Balanza comercial de septiembre</b><p>El INDEC dirá cuánto suma septiembre a un superávit energético que ya superó todo 2025.</p><span class="when">Segunda quincena de octubre</span></div></li>
+          <li><div><b>Oleoducto VMOS</b><p>Con la obra al 80%, cualquier novedad sobre el cronograma del primer embarque en Punta Colorada.</p><span class="when">En seguimiento</span></div></li>
+        </ol>
       </div>
     </div>
   </section>
 
   <!-- SUSCRIPCIÓN -->
-  <section class="band subscribe" id="suscripcion">
-    <div class="wrap">
-      <div class="reveal">
-        <h2>Vaca Muerta, <em>cada viernes</em> en tu mail.</h2>
-        <p class="lead">Te escribimos cuando salen datos, gráficos y noticias nuevas. Un mail por semana.</p>
+  <section class="block" id="suscripcion" style="border-bottom:0;">
+    <div class="subscribe">
+      <div>
+        <h2>Recibí la actualización de los viernes</h2>
+        <p>Te escribimos cuando salen datos, gráficos y noticias nuevas. Un mail por semana.</p>
       </div>
-      <form id="formSuscripcion" class="reveal" novalidate>
+      <form id="formSuscripcion" novalidate>
         <input type="hidden" name="access_key" value="21c27efd-9f7c-4b4e-84d3-e686a440eec7">
         <input type="hidden" name="subject" value="¡Nuevo suscriptor en Impulso VM!">
         <label for="emailInput" class="sr">Tu email</label>
@@ -900,14 +723,12 @@
 
   <!-- CONTACTO -->
   <section id="contacto" class="contact">
-    <div class="wrap reveal">
-      <h2>Contacto</h2>
-      <p>¿Querés comentar algo, sugerir un dato o ponerte en contacto? Escribime por mi LinkedIn personal.</p>
-      <a class="linkedin" href="https://www.linkedin.com/in/juan-de-la-cruz-schiappacasse-a00aa6256/" target="_blank" rel="noopener">
-        <img src="linkedin.png" alt="" width="30" height="30">
-        <span>Juan de la Cruz Schiappacasse</span>
-      </a>
-    </div>
+    <h2>Contacto</h2>
+    <p>¿Querés comentar algo, sugerir un dato o ponerte en contacto? Escribime por mi LinkedIn personal.</p>
+    <a class="linkedin" href="https://www.linkedin.com/in/juan-de-la-cruz-schiappacasse-a00aa6256/" target="_blank" rel="noopener">
+      <img src="linkedin.png" alt="" width="30" height="30">
+      <span>Juan de la Cruz Schiappacasse</span>
+    </a>
   </section>
 
 </main>
@@ -915,23 +736,25 @@
 <div class="strata" aria-hidden="true"><span style="background:var(--rock1)"></span><span style="background:var(--rock2)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock4)"></span><span style="background:var(--rock2)"></span><span style="background:var(--flare-dim)"></span><span style="background:var(--rock3)"></span><span style="background:var(--rock1)"></span></div>
 <footer>
   <div class="wrap">
-    <p class="logo">Impulso <span>VM</span></p>
-    <p>Seguimiento económico y estratégico de Vaca Muerta. Todos los viernes actualizamos el sitio con los últimos datos oficiales del INDEC y la Secretaría de Energía, más un resumen de lo que marcó la agenda de la semana.</p>
-    <p>Última actualización: viernes 25 de septiembre de 2026.</p>
+    <div class="cols">
+      <div>
+        <p class="logo">Impulso <span>VM</span></p>
+        <p>Seguimiento económico y estratégico de Vaca Muerta. Todos los viernes actualizamos el sitio con los últimos datos oficiales del INDEC y la Secretaría de Energía, más un resumen de lo que marcó la agenda de la semana.</p>
+        <p>Última actualización: viernes 25 de septiembre de 2026.</p>
+      </div>
+    </div>
     <div class="install" id="installBox">
       <span id="installText">Llevá Impulso VM en tu celular, como una app.</span>
       <button type="button" id="installBtn" hidden>Instalar la app</button>
     </div>
     <div class="legal">
       <span>© 2026 Impulso VM. Proyecto independiente.</span>
-      <a href="#top">Volver arriba ↑</a>
+      <a href="#contenido">Volver arriba ↑</a>
     </div>
   </div>
 </footer>
 
 <script>
-document.documentElement.classList.add('js');
-
 /* =========================================================
    DATOS DE LOS GRÁFICOS
    Para actualizar: cambiá los números acá. Usá null si un mes
@@ -946,9 +769,6 @@ const PRODUCCION_2026 = { // miles de barriles diarios
   vacaMuerta:  [590,  null, null, 616, null, null, 643, 658]
 };
 
-/* Avance de obra del oleoducto VMOS, en % */
-const AVANCE_VMOS = 80;
-
 /* Termómetro del viernes. Completá cada semana:
    valor = cierre del viernes, semana = variación % contra el viernes anterior.
    buenoSiSube: true si una suba favorece a Vaca Muerta.
@@ -962,10 +782,6 @@ const TERMOMETRO = [
 ];
 
 /* ========================================================= */
-
-const NS = 'http://www.w3.org/2000/svg';
-const fmt = n => n.toLocaleString('es-AR', {maximumFractionDigits: 1});
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function drawTermometro(){
   const t = document.getElementById('tabla-termometro');
@@ -983,6 +799,9 @@ function drawTermometro(){
     t.appendChild(tr);
   });
 }
+
+const NS = 'http://www.w3.org/2000/svg';
+const fmt = n => n.toLocaleString('es-AR', {maximumFractionDigits: 1});
 
 function el(tag, attrs, text){
   const e = document.createElementNS(NS, tag);
@@ -1004,9 +823,9 @@ function svgFor(host, h){
 }
 
 function barChart(host, values, labels){
-  const H = host.clientWidth < 480 ? 240 : 290;
+  const H = host.clientWidth < 480 ? 230 : 280;
   const [svg, W] = svgFor(host, H);
-  const m = {t: 24, r: 0, b: 26, l: 40};
+  const m = {t: 22, r: 0, b: 26, l: 40};
   const iw = W - m.l - m.r, ih = H - m.t - m.b;
   const step = niceStep(Math.max(...values), 4);
   const max = Math.ceil(Math.max(...values) / step) * step;
@@ -1019,11 +838,9 @@ function barChart(host, values, labels){
   const band = iw / values.length, bw = Math.min(46, band * 0.66);
   values.forEach((v, i) => {
     const cx = m.l + band * i + band / 2, last = i === values.length - 1;
-    const r = el('rect', {x: cx - bw / 2, y: y(v), width: bw, height: y(0) - y(v), rx: 1.5, class: 'bar-r',
-      fill: last ? 'var(--flare-dim)' : 'var(--flare)', style: `transition-delay:${i * 70}ms`});
-    r.appendChild(el('title', {}, `${labels[i]}: USD ${fmt(v)} M`));
-    svg.appendChild(r);
-    svg.appendChild(el('text', {x: cx, y: y(v) - 7, 'text-anchor': 'middle', class: 'val', style: `transition-delay:${300 + i * 70}ms`}, fmt(v)));
+    svg.appendChild(el('rect', {x: cx - bw / 2, y: y(v), width: bw, height: y(0) - y(v), class: 'bar-r',
+      fill: last ? 'var(--flare-dim)' : 'var(--flare)', style: `transition-delay:${i * 70}ms`}));
+    svg.appendChild(el('text', {x: cx, y: y(v) - 6, 'text-anchor': 'middle', class: 'val', style: `transition-delay:${300 + i * 70}ms`}, fmt(v)));
     svg.appendChild(el('text', {x: cx, y: H - 6, 'text-anchor': 'middle'}, labels[i]));
   });
   svg.setAttribute('aria-label', 'Superávit energético mensual en millones de dólares: ' +
@@ -1031,10 +848,10 @@ function barChart(host, values, labels){
 }
 
 function lineChart(host, series, labels){
-  const H = host.clientWidth < 480 ? 260 : 300;
+  const H = host.clientWidth < 480 ? 250 : 290;
   const [svg, W] = svgFor(host, H);
   const narrow = W < 480;
-  const m = {t: 22, r: narrow ? 86 : 96, b: 26, l: 40};
+  const m = {t: 20, r: narrow ? 86 : 96, b: 26, l: 40};
   const iw = W - m.l - m.r, ih = H - m.t - m.b;
   const lo = 500, hi = 1000, step = 100;
   const n = labels.length;
@@ -1051,23 +868,20 @@ function lineChart(host, series, labels){
   series.forEach(s => {
     const pts = s.values.map((v, i) => v == null ? null : [x(i), y(v), v]).filter(Boolean);
     const line = el('polyline', {points: pts.map(p => p[0] + ',' + p[1]).join(' '), class: 'line',
-      fill: 'none', stroke: s.color, 'stroke-width': 3, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'});
+      fill: 'none', stroke: s.color, 'stroke-width': 2.5, 'stroke-linejoin': 'round'});
     svg.appendChild(line);
     const len = pts.reduce((a, p, k) => k ? a + Math.hypot(p[0] - pts[k-1][0], p[1] - pts[k-1][1]) : 0, 0);
     line.style.strokeDasharray = len;
-    line.style.strokeDashoffset = host.classList.contains('in') || reduce ? 0 : len;
-    line.dataset.len = len;
+    line.style.strokeDashoffset = host.classList.contains('in') || reduceMotion ? 0 : len;
     pts.forEach((p, k) => {
-      const g = el('g', {class: 'pt', style: `transition-delay:${400 + k * 180}ms`});
-      g.appendChild(el('circle', {cx: p[0], cy: p[1], r: 4.5, fill: '#FFFCF4', stroke: s.color, 'stroke-width': 2.5}));
+      svg.appendChild(el('circle', {cx: p[0], cy: p[1], r: 3.5, fill: 'var(--paper)', stroke: s.color, 'stroke-width': 2, class: 'pt', style: `transition-delay:${400 + k * 180}ms`}));
       if (k < pts.length - 1 && !narrow)
-        g.appendChild(el('text', {x: p[0], y: p[1] + (s.labelBelow ? 20 : -12), 'text-anchor': 'middle', class: 'val'}, fmt(p[2])));
-      svg.appendChild(g);
+        svg.appendChild(el('text', {x: p[0], y: p[1] + (s.labelBelow ? 18 : -10), 'text-anchor': 'middle', class: 'val'}, fmt(p[2])));
     });
     const end = pts[pts.length - 1];
-    const lbl = el('text', {x: end[0] + 12, y: end[1] - 2, class: 'pt', style: 'transition-delay:1.4s'});
-    lbl.appendChild(el('tspan', {x: end[0] + 12, 'font-weight': 600, style: `fill:${s.color}`}, s.name));
-    lbl.appendChild(el('tspan', {x: end[0] + 12, dy: 15, class: 'val'}, fmt(end[2])));
+    const lbl = el('text', {x: end[0] + 10, y: end[1] - 2, fill: s.color, class: 'pt', style: 'transition-delay:1.4s'});
+    lbl.appendChild(el('tspan', {x: end[0] + 10, 'font-weight': 600, style: `fill:${s.color}`}, s.name));
+    lbl.appendChild(el('tspan', {x: end[0] + 10, dy: 14, class: 'val'}, fmt(end[2])));
     svg.appendChild(lbl);
     desc.push(s.name + ': ' + s.values.map((v, i) => v == null ? null : `${labels[i]} ${fmt(v)}`).filter(Boolean).join(', '));
   });
@@ -1083,8 +897,38 @@ function drawCharts(){
     {name: 'Vaca Muerta', values: PRODUCCION_2026.vacaMuerta, color: 'var(--gas)', labelBelow: true}
   ], MESES.slice(0, nP));
 }
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 drawCharts();
 drawTermometro();
+
+/* Números que suben y gráficos que crecen al aparecer en pantalla */
+function countUp(span){
+  const to = parseFloat(span.dataset.count);
+  const f = v => Math.round(v).toLocaleString('es-AR');
+  if (reduceMotion){ span.textContent = f(to); return; }
+  const t0 = performance.now(), dur = 1400;
+  const tick = now => {
+    const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+    span.textContent = f(to * e);
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+if ('IntersectionObserver' in window){
+  const seen = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const t = en.target;
+      t.classList.add('in');
+      if (t.dataset.count) countUp(t);
+      t.querySelectorAll('.line').forEach(l => l.style.strokeDashoffset = 0);
+      seen.unobserve(t);
+    });
+  }, {threshold: 0.2});
+  document.querySelectorAll('.chart, .hbars, .progress, [data-count]').forEach(n => seen.observe(n));
+} else {
+  document.querySelectorAll('.chart, .hbars, .progress').forEach(n => n.classList.add('in'));
+}
 let lastW = window.innerWidth;
 window.addEventListener('resize', () => {
   if (window.innerWidth === lastW) return;
@@ -1094,76 +938,9 @@ window.addEventListener('resize', () => {
 });
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawCharts);
 
-/* Portada: etapas de fractura sobre la rama horizontal del pozo */
-(function(){
-  const g = document.getElementById('stages');
-  let k = 0;
-  for (let x = 530; x <= 1150; x += 52, k++){
-    const s = el('g', {class: 'stage', style: `animation-delay:${2.3 + k * 0.12}s`});
-    s.appendChild(el('line', {x1: x, y1: 234, x2: x, y2: 258}));
-    s.appendChild(el('line', {x1: x - 7, y1: 237, x2: x + 7, y2: 253}));
-    s.appendChild(el('line', {x1: x + 7, y1: 237, x2: x - 7, y2: 253}));
-    s.appendChild(el('circle', {cx: x, cy: 245, r: 4}));
-    g.appendChild(s);
-  }
-  requestAnimationFrame(() => document.getElementById('basin').classList.add('go'));
-})();
-
-/* Oleoducto: avance de obra */
-function drawPipe(on){
-  const L = 472, fill = L * AVANCE_VMOS / 100;
-  const flow = document.getElementById('pipeFlow');
-  flow.style.strokeDasharray = `${fill} ${L}`;
-  flow.style.strokeDashoffset = on || reduce ? 0 : fill;
-  document.getElementById('pipeOil').setAttribute('d', `M14 66 H${14 + fill}`);
-  document.getElementById('pipePct').textContent = AVANCE_VMOS + '%';
-  document.getElementById('pipe').setAttribute('aria-valuenow', AVANCE_VMOS);
-}
-drawPipe(false);
-
-/* Números que cuentan hacia arriba */
-function countUp(span){
-  const to = parseFloat(span.dataset.count), dec = +(span.dataset.dec || 0);
-  const f = v => v.toLocaleString('es-AR', {minimumFractionDigits: dec, maximumFractionDigits: dec});
-  if (reduce){ span.textContent = f(to); return; }
-  const t0 = performance.now(), dur = 1400;
-  const tick = now => {
-    const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-    span.textContent = f(to * e);
-    if (p < 1) requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
-}
-
-/* Aparición al entrar en pantalla */
-if ('IntersectionObserver' in window){
-  const seen = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      if (!en.isIntersecting) return;
-      const t = en.target;
-      t.classList.add('in');
-      t.querySelectorAll('[data-count]').forEach(countUp);
-      if (t.classList.contains('chart')) t.querySelectorAll('.line').forEach(l => l.style.strokeDashoffset = 0);
-      if (t.id === 'pipe') drawPipe(true);
-      seen.unobserve(t);
-    });
-  }, {threshold: 0.18});
-  document.querySelectorAll('.reveal, .grow, .chart, #pipe, .hero-stats, .bigstat .wrap').forEach(n => seen.observe(n));
-} else {
-  document.querySelectorAll('.reveal, .grow, .chart').forEach(n => n.classList.add('in'));
-  drawPipe(true);
-}
-
-/* Barra de progreso de lectura */
-const bar = document.getElementById('progress');
-function onScroll(){
-  const h = document.documentElement.scrollHeight - innerHeight;
-  bar.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`;
-}
-addEventListener('scroll', onScroll, {passive: true}); onScroll();
-
+/* Sección activa en el menú */
 /* Menú hamburguesa (celular) */
-const nav = document.querySelector('nav.top');
+const nav = document.querySelector('nav.sections');
 const menuBtn = nav.querySelector('.menu-btn');
 function setMenu(open){
   nav.classList.toggle('open', open);
@@ -1175,8 +952,7 @@ nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu
 document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 document.addEventListener('click', e => { if (!nav.contains(e.target)) setMenu(false); });
 
-/* Sección activa en el menú */
-const links = [...document.querySelectorAll('nav.top li a')];
+const links = [...document.querySelectorAll('nav.sections li a')];
 const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
 if ('IntersectionObserver' in window){
   const io = new IntersectionObserver(entries => {
@@ -1184,12 +960,19 @@ if ('IntersectionObserver' in window){
       if (en.isIntersecting){
         links.forEach(a => a.classList.remove('on'));
         const a = byId[en.target.id];
-        if (a) a.classList.add('on');
+        if (a){
+          a.classList.add('on');
+          // Solo desplaza el menú de costado; nunca mueve la página.
+          const ul = a.closest('ul');
+          const left = a.offsetLeft - ul.offsetLeft, right = left + a.offsetWidth;
+          if (left < ul.scrollLeft) ul.scrollLeft = left - 8;
+          else if (right > ul.scrollLeft + ul.clientWidth) ul.scrollLeft = right - ul.clientWidth + 8;
+        }
       }
     });
   }, {rootMargin: '-45% 0px -50% 0px'});
   Object.keys(byId).forEach(id => { const s = document.getElementById(id); if (s) io.observe(s); });
-  ['top', 'resumen'].forEach(id => io.observe(document.getElementById(id))); // arriba de todo: ninguna sección marcada
+  const front = document.querySelector('.front'); if (front) io.observe(front); // arriba de todo: ninguna sección marcada
 }
 
 /* Suscripción (Web3Forms) */
