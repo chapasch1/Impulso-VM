@@ -31,7 +31,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     /* Paleta de Impulso VM */
@@ -60,9 +60,9 @@
     --cream:#332B1E;
     --cream-2:#5A5042;
     --cream-3:#74695A;
-    --serif:'Newsreader', Georgia, 'Times New Roman', serif;
-    --sans:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    --serif:'Fraunces', Georgia, 'Times New Roman', serif;       /* títulos */
+    --sans:'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; /* textos */
+    --mono:'Source Serif 4', Georgia, serif;                       /* cifras y etiquetas */
     --nav-h:60px;
   }
 
@@ -211,7 +211,7 @@
   /* ---------- Secciones ---------- */
   section.block{padding:clamp(56px, 8vw, 104px) 0; border-bottom:1px solid var(--rule);}
   .kicker{font-family:var(--mono); font-size:12px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--sand-dim); margin:0 0 12px;}
-  .sec-head{display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:20px 56px; align-items:end; margin-bottom:clamp(30px, 4vw, 48px);}
+  .sec-head{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:20px 56px; align-items:end; margin-bottom:clamp(30px, 4vw, 48px);}
   .sec-head h2{font-family:var(--serif); font-weight:500; font-size:clamp(30px, 4.2vw, 52px); line-height:1.05; letter-spacing:-.02em; margin:0; text-wrap:balance;}
   .sec-head p.intro{margin:0; color:var(--ink-2); font-size:17px; line-height:1.55;}
   @media (max-width:860px){ .sec-head{grid-template-columns:1fr;} }
