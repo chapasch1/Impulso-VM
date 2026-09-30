@@ -1,0 +1,18 @@
+{
+  "name": "Impulso VM",
+  "short_name": "Impulso VM",
+  "description": "Vaca Muerta en números: producción, balanza energética, empresas, infraestructura y las noticias de la semana. Se actualiza todos los viernes.",
+  "lang": "es-AR",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF6EA",
+  "theme_color": "#FBF6EA",
+  "categories": ["news", "business", "finance"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
