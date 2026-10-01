@@ -6,7 +6,12 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
 ## 1. Qué NO tenés que cambiar
 - Colores, tipografías, CSS, estructura de secciones ni el orden del menú.
 - El código de Google Analytics, la clave de Web3Forms, el formulario de suscripción, la sección de Contacto/LinkedIn, los botones de Compartir, el glosario "Vaca Muerta en un minuto" ni la imagen og.png.
-- Los íconos del sitio (las etiquetas <link rel="icon"> que apuntan a favicon.png) ni el bloque <script type="application/ld+json"> con el nombre y el logo para Google.
+- El ícono del sitio (favicon). Es lo que Google muestra al lado del resultado de búsqueda: si se rompe, desaparece de Google y tarda semanas en volver. Reglas:
+  - la línea `<link rel="icon" type="image/png" href="favicon.png">` tiene que quedar EXACTAMENTE igual, y ser la primera etiqueta de ícono del <head>;
+  - no la borres, no la muevas abajo, no cambies "favicon.png" por otro nombre ni por una ruta distinta;
+  - no conviertas el ícono en una imagen embebida (data:image/...) en lugar del archivo. El respaldo embebido que ya existe va debajo y se deja como está;
+  - el archivo favicon.png no se renombra ni se reemplaza.
+- El bloque <script type="application/ld+json"> con el nombre y el logo del sitio para Google.
 - Las funciones de JavaScript. Solo podés editar estos bloques de datos: EDICION, SUPERAVIT_2026, PRODUCCION_2026, FRACTURAS_2026, FRACTURAS_ACUMULADO, FRACTURAS_PROYECCION y TERMOMETRO.
 
 ## 2. Reglas de verificación (lo más importante)
@@ -30,6 +35,7 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
   - en Gas, Vaca Muerta + resto de Neuquén + resto del país tiene que dar el total nacional, y los % tienen que sumar 100;
   - un mismo dato tiene que tener el mismo valor en todos los lugares donde aparece (portada, tablas, resumen, gráficos, vista previa);
   - no pueden quedar textos de la semana anterior.
+  - el <head> sigue teniendo, como primera etiqueta de ícono, `<link rel="icon" type="image/png" href="favicon.png">`, sin cambios.
 
 ## 4. Qué actualizar, sección por sección
 1. Fecha: cambiá SOLO `const EDICION = 'AAAA-MM-DD';`. Se completa sola en la barra superior, en "La semana", en el pie y en el link para compartir. Revisá también cualquier "enero–[mes]" o "[mes] 2026" de los textos.
