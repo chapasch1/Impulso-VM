@@ -3,19 +3,10 @@ PERÍODO A CUBRIR: los 7 días anteriores a esa fecha, inclusive
 
 Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu tarea es actualizar el contenido para la edición de esta fecha. No toques el diseño: el trabajo es solo de datos y textos.
 
-## 0. Antes de empezar: pasar esta edición a "La semana pasada"
-El sitio es un solo archivo. La edición anterior no se guarda aparte: queda resumida en el bloque desplegable "La semana pasada", al final de la sección "La semana" (está marcado con el comentario "LA SEMANA PASADA").
-Antes de escribir nada nuevo, reemplazá el contenido de ese bloque con lo que tiene HOY el archivo que te adjunto:
-- en el <summary>: "Edición del [fecha de la edición que se va]" (es la fecha de `const EDICION` antes de cambiarla);
-- en <p class="lw-head">: el titular actual de la portada (el h1);
-- en la lista: las 5 notas actuales de "La semana", una por <li>, con este formato:
-  <li><time>DD mes</time><a href="LINK" target="_blank" rel="noopener">TÍTULO</a><span>MEDIO</span></li>
-Lo que había antes en ese bloque se borra: solo se guarda una semana para atrás.
-
 ## 1. Qué NO tenés que cambiar
 - Colores, tipografías, CSS, estructura de secciones ni el orden del menú.
 - El código de Google Analytics, la clave de Web3Forms, el formulario de suscripción, la sección de Contacto/LinkedIn, los botones de Compartir, el glosario "Vaca Muerta en un minuto" ni la imagen og.png.
-- Los íconos del sitio (las etiquetas <link rel="icon"> que apuntan a /favicon.png) ni el bloque <script type="application/ld+json"> con el nombre y el logo para Google.
+- Los íconos del sitio (las etiquetas <link rel="icon"> que apuntan a favicon.png) ni el bloque <script type="application/ld+json"> con el nombre y el logo para Google.
 - Las funciones de JavaScript. Solo podés editar estos bloques de datos: EDICION, SUPERAVIT_2026, PRODUCCION_2026, FRACTURAS_2026, FRACTURAS_ACUMULADO, FRACTURAS_PROYECCION y TERMOMETRO.
 
 ## 2. Reglas de verificación (lo más importante)
@@ -90,6 +81,6 @@ Lo que había antes en ese bloque se borra: solo se guarda una semana para atrá
 - Números con formato argentino en los textos (1.234,5). En los bloques de JavaScript van con punto decimal (930.5) y sin separador de miles (19230).
 
 ## 6. Qué me tenés que entregar
-1. El index.html completo y actualizado, como archivo descargable (es muy largo para pegarlo en el chat). Es el único archivo: no hay que entregar ni subir ningún otro.
+1. El index.html completo y actualizado, como archivo descargable (es muy largo para pegarlo en el chat). Es el único archivo: no hay que entregar ni subir ningún otro. El sitio muestra solo la edición del día; no se guardan ediciones anteriores.
 2. Una tabla de cambios con estas columnas: Sección | Dato | Valor anterior | Valor nuevo | Fuente 1 | Fuente 2 | Fuente 3 (con links) | Estado (Verificado / Sin cambios / No verificado).
 3. Una lista corta de lo que no pudiste confirmar, de las cuentas que no cerraron o de las fuentes que no coincidían, para que yo lo revise antes de publicar.
