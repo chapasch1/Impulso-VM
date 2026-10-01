@@ -15,6 +15,7 @@ Lo que había antes en ese bloque se borra: solo se guarda una semana para atrá
 ## 1. Qué NO tenés que cambiar
 - Colores, tipografías, CSS, estructura de secciones ni el orden del menú.
 - El código de Google Analytics, la clave de Web3Forms, el formulario de suscripción, la sección de Contacto/LinkedIn, los botones de Compartir, el glosario "Vaca Muerta en un minuto" ni la imagen og.png.
+- Los íconos del sitio (las etiquetas <link rel="icon"> que apuntan a /favicon.png) ni el bloque <script type="application/ld+json"> con el nombre y el logo para Google.
 - Las funciones de JavaScript. Solo podés editar estos bloques de datos: EDICION, SUPERAVIT_2026, PRODUCCION_2026, FRACTURAS_2026, FRACTURAS_ACUMULADO, FRACTURAS_PROYECCION y TERMOMETRO.
 
 ## 2. Reglas de verificación (lo más importante)
