@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Impulso VM · versión del sitio: 2026-10-01 (con "La semana pasada" y favicon en /favicon.png) -->
 <html lang="es-AR">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -403,7 +404,7 @@
   @media (prefers-reduced-motion: reduce){ .split i, .tile, .ring .arc{transition:none;} .js .split:not(.in) i{transform:none;} .js .tiles:not(.in) .tile{opacity:1; transform:none;} }
 
   /* ---------- La semana pasada ---------- */
-  .lastweek{margin-top:28px; border:1px solid var(--rule); border-radius:4px; background:var(--paper);}
+  .lastweek{scroll-margin-top:80px; margin-top:28px; border:1px solid var(--rule); border-radius:4px; background:var(--paper);}
   .lastweek summary{list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding:14px 18px; font-size:15px;}
   .lastweek summary::-webkit-details-marker{display:none;}
   .lastweek summary span{font-size:12.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--sand-dim);}
@@ -481,6 +482,7 @@
         <span>Compartir</span>
         <a class="sh-wa" href="https://wa.me/?text=Vaca%20Muerta%20en%20n%C3%BAmeros%2C%20esta%20semana%3A%20https%3A%2F%2Fimpulsovm.com.ar%2F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.4Z"/></svg>WhatsApp</a>
         <a class="sh-in" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fimpulsovm.com.ar%2F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M7 9.5h2.5V18H7zM8.2 5.5a1.4 1.4 0 1 1 0 2.9 1.4 1.4 0 0 1 0-2.9ZM11 9.5h2.4v1.2c.4-.7 1.2-1.4 2.6-1.4 2.7 0 3.1 1.7 3.1 4V18h-2.5v-4.2c0-1 0-2.2-1.4-2.2s-1.6 1-1.6 2.1V18H11z"/></svg>LinkedIn</a>
+        <a class="sh-last" href="#semana-pasada"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>La semana pasada</a>
         <button type="button" class="sh-copy"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><em style="font-style:normal">Copiar link</em></button>
       </div>
     </article>
@@ -871,7 +873,7 @@
     </ul>
 
     <!-- LA SEMANA PASADA: cada viernes se reemplaza por el titular y las notas de la edición anterior -->
-    <details class="lastweek">
+    <details class="lastweek" id="semana-pasada">
       <summary><span>La semana pasada</span> <b>Edición del 25 de septiembre de 2026</b></summary>
       <div class="lw-body">
         <p class="lw-head">Estados Unidos ofrece hasta USD 7.000 millones a la Argentina y casi todo apunta a Argentina LNG</p>
@@ -1183,6 +1185,14 @@ const LINK_EDICION = 'https://impulsovm.com.ar/?ed=' + EDICION;
   document.querySelectorAll('.sh-wa').forEach(a => a.href = 'https://wa.me/?text=' + encodeURIComponent(titular + ' · Impulso VM ' + LINK_EDICION));
   document.querySelectorAll('.sh-in').forEach(a => a.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(LINK_EDICION));
 })();
+
+/* "La semana pasada": se abre solo al tocar el botón o al entrar con #semana-pasada */
+function abrirSemanaPasada(){
+  const d = document.getElementById('semana-pasada');
+  if (d){ d.open = true; d.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'start'}); }
+}
+document.querySelectorAll('a[href="#semana-pasada"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); abrirSemanaPasada(); history.replaceState(null, '', '#semana-pasada'); }));
+if (location.hash === '#semana-pasada') setTimeout(abrirSemanaPasada, 300);
 
 /* Compartir: copiar el link */
 document.querySelectorAll('.sh-copy').forEach(b => b.addEventListener('click', async () => {
