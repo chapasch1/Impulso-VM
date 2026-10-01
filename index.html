@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Impulso VM · versión del sitio: 2026-10-01c (favicon.png + respaldo embebido) -->
+<!-- Impulso VM · versión del sitio: 2026-10-01d (LinkedIn abre la app en el celular) -->
 <html lang="es-AR">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -1152,6 +1152,17 @@ const LINK_EDICION = 'https://impulsovm.com.ar/?ed=' + EDICION;
   const titular = document.querySelector('.lead-story h1').textContent.trim();
   document.querySelectorAll('.sh-wa').forEach(a => a.href = 'https://wa.me/?text=' + encodeURIComponent(titular + ' · Impulso VM ' + LINK_EDICION));
   document.querySelectorAll('.sh-in').forEach(a => a.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(LINK_EDICION));
+  /* En el celular, LinkedIn no deja abrir su app desde un link de "compartir".
+     Por eso ahí se usa el menú Compartir del sistema: el usuario toca LinkedIn
+     y se abre la app con el link listo para publicar. En la compu sigue igual. */
+  const esCelular = /android|iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /macintosh/i.test(navigator.userAgent));
+  if (esCelular && navigator.share){
+    document.querySelectorAll('.sh-in').forEach(a => a.addEventListener('click', async e => {
+      e.preventDefault();
+      try { await navigator.share({title: titular, text: titular, url: LINK_EDICION}); }
+      catch(err){ if (err && err.name !== 'AbortError') location.href = a.href; }
+    }));
+  }
 })();
 
 /* Compartir: copiar el link */
