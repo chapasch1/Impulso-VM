@@ -3,18 +3,14 @@ PERÍODO A CUBRIR: los 7 días anteriores a esa fecha, inclusive
 
 Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu tarea es actualizar el contenido para la edición de esta fecha. No toques el diseño: el trabajo es solo de datos y textos.
 
-## 0. Antes de empezar: guardar la edición anterior (solo una)
-El sitio guarda únicamente la edición inmediatamente anterior, no un archivo de todas. Siempre se usa el mismo nombre de archivo, así cada semana reemplaza a la anterior.
-1. Hacé una copia del index.html que te adjunto, tal como está, y llamala edicion-anterior.html (siempre ese nombre, sin fecha y sin carpetas). Va en la misma ubicación que el index.html.
-2. En esa copia:
-   - si ya tiene un aviso "Estás viendo una edición anterior" o un `<meta name="robots"`, no los dupliques;
-   - agregá `<meta name="robots" content="noindex, follow">` dentro del <head>;
-   - cambiá el <title> a "Impulso VM | Edición del [fecha de esa edición]";
-   - pegá este aviso justo después de <body>:
-     <div style="background:#332B1E;color:#FBF6EA;font:600 14px/1.4 system-ui,sans-serif;padding:10px 16px;text-align:center;">Estás viendo la edición anterior, la del [fecha]. <a href="./" style="color:#F0B429;">Ir a la edición actual →</a></div>
-   - en el pie de esa copia, borrá el bloque "Edición anterior" (el `<nav class="archive">`), porque esa copia no tiene una edición anterior propia.
-3. En el index.html nuevo, en el pie, reemplazá el único link del bloque "Edición anterior" por el de la edición que acabás de guardar (no agregues uno nuevo):
-   <li><a href="edicion-anterior.html"><b>DD mes AAAA</b> · tema principal en 3 a 5 palabras</a></li>
+## 0. Antes de empezar: pasar esta edición a "La semana pasada"
+El sitio es un solo archivo. La edición anterior no se guarda aparte: queda resumida en el bloque desplegable "La semana pasada", al final de la sección "La semana" (está marcado con el comentario "LA SEMANA PASADA").
+Antes de escribir nada nuevo, reemplazá el contenido de ese bloque con lo que tiene HOY el archivo que te adjunto:
+- en el <summary>: "Edición del [fecha de la edición que se va]" (es la fecha de `const EDICION` antes de cambiarla);
+- en <p class="lw-head">: el titular actual de la portada (el h1);
+- en la lista: las 5 notas actuales de "La semana", una por <li>, con este formato:
+  <li><time>DD mes</time><a href="LINK" target="_blank" rel="noopener">TÍTULO</a><span>MEDIO</span></li>
+Lo que había antes en ese bloque se borra: solo se guarda una semana para atrás.
 
 ## 1. Qué NO tenés que cambiar
 - Colores, tipografías, CSS, estructura de secciones ni el orden del menú.
@@ -93,9 +89,6 @@ El sitio guarda únicamente la edición inmediatamente anterior, no un archivo d
 - Números con formato argentino en los textos (1.234,5). En los bloques de JavaScript van con punto decimal (930.5) y sin separador de miles (19230).
 
 ## 6. Qué me tenés que entregar
-1. Dos archivos completos, listos para subir, como archivos descargables (el HTML es muy largo para pegarlo en el chat):
-   - index.html (la edición nueva);
-   - edicion-anterior.html (la edición de la semana pasada).
-   Los dos se suben en el mismo lugar, uno al lado del otro, reemplazando a los de la semana anterior.
+1. El index.html completo y actualizado, como archivo descargable (es muy largo para pegarlo en el chat). Es el único archivo: no hay que entregar ni subir ningún otro.
 2. Una tabla de cambios con estas columnas: Sección | Dato | Valor anterior | Valor nuevo | Fuente 1 | Fuente 2 | Fuente 3 (con links) | Estado (Verificado / Sin cambios / No verificado).
 3. Una lista corta de lo que no pudiste confirmar, de las cuentas que no cerraron o de las fuentes que no coincidían, para que yo lo revise antes de publicar.
