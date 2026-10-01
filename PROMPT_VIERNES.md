@@ -3,15 +3,18 @@ PERÍODO A CUBRIR: los 7 días anteriores a esa fecha, inclusive
 
 Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu tarea es actualizar el contenido para la edición de esta fecha. No toques el diseño: el trabajo es solo de datos y textos.
 
-## 0. Antes de empezar: guardar la edición anterior
-1. Hacé una copia del index.html que te adjunto, tal como está, y llamala edicion-AAAA-MM-DD.html, con la fecha de ESA edición (la que figura en `const EDICION`). Ejemplo: edicion-2026-09-30.html. Va en la misma ubicación que el index.html, sin carpetas.
+## 0. Antes de empezar: guardar la edición anterior (solo una)
+El sitio guarda únicamente la edición inmediatamente anterior, no un archivo de todas. Siempre se usa el mismo nombre de archivo, así cada semana reemplaza a la anterior.
+1. Hacé una copia del index.html que te adjunto, tal como está, y llamala edicion-anterior.html (siempre ese nombre, sin fecha y sin carpetas). Va en la misma ubicación que el index.html.
 2. En esa copia:
+   - si ya tiene un aviso "Estás viendo una edición anterior" o un `<meta name="robots"`, no los dupliques;
    - agregá `<meta name="robots" content="noindex, follow">` dentro del <head>;
-   - cambiá el <title> a "Impulso VM | Edición del [fecha]";
+   - cambiá el <title> a "Impulso VM | Edición del [fecha de esa edición]";
    - pegá este aviso justo después de <body>:
-     <div style="background:#332B1E;color:#FBF6EA;font:600 14px/1.4 system-ui,sans-serif;padding:10px 16px;text-align:center;">Estás viendo una edición anterior, la del [fecha]. <a href="./" style="color:#F0B429;">Ir a la edición actual →</a></div>
-3. En el index.html nuevo, sumá esa edición al principio de la lista "Ediciones anteriores" del pie:
-   <li><a href="edicion-AAAA-MM-DD.html"><b>DD mes AAAA</b> · tema principal en 3 a 5 palabras</a></li>
+     <div style="background:#332B1E;color:#FBF6EA;font:600 14px/1.4 system-ui,sans-serif;padding:10px 16px;text-align:center;">Estás viendo la edición anterior, la del [fecha]. <a href="./" style="color:#F0B429;">Ir a la edición actual →</a></div>
+   - en el pie de esa copia, borrá el bloque "Edición anterior" (el `<nav class="archive">`), porque esa copia no tiene una edición anterior propia.
+3. En el index.html nuevo, en el pie, reemplazá el único link del bloque "Edición anterior" por el de la edición que acabás de guardar (no agregues uno nuevo):
+   <li><a href="edicion-anterior.html"><b>DD mes AAAA</b> · tema principal en 3 a 5 palabras</a></li>
 
 ## 1. Qué NO tenés que cambiar
 - Colores, tipografías, CSS, estructura de secciones ni el orden del menú.
@@ -92,7 +95,7 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
 ## 6. Qué me tenés que entregar
 1. Dos archivos completos, listos para subir, como archivos descargables (el HTML es muy largo para pegarlo en el chat):
    - index.html (la edición nueva);
-   - edicion-AAAA-MM-DD.html (la edición anterior archivada).
-   Los dos se suben en el mismo lugar, uno al lado del otro.
+   - edicion-anterior.html (la edición de la semana pasada).
+   Los dos se suben en el mismo lugar, uno al lado del otro, reemplazando a los de la semana anterior.
 2. Una tabla de cambios con estas columnas: Sección | Dato | Valor anterior | Valor nuevo | Fuente 1 | Fuente 2 | Fuente 3 (con links) | Estado (Verificado / Sin cambios / No verificado).
 3. Una lista corta de lo que no pudiste confirmar, de las cuentas que no cerraron o de las fuentes que no coincidían, para que yo lo revise antes de publicar.
