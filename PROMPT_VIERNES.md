@@ -7,10 +7,13 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
 - Colores, tipografías, CSS, estructura de secciones ni el orden del menú.
 - El código de Google Analytics, la clave de Web3Forms, el formulario de suscripción, la sección de Contacto/LinkedIn, los botones de Compartir, el glosario "Vaca Muerta en un minuto" ni la imagen og.png.
 - El ícono del sitio (favicon). Es lo que Google muestra al lado del resultado de búsqueda: si se rompe, desaparece de Google y tarda semanas en volver. Reglas:
-  - la línea `<link rel="icon" type="image/png" href="favicon.png">` tiene que quedar EXACTAMENTE igual, y ser la primera etiqueta de ícono del <head>;
-  - no la borres, no la muevas abajo, no cambies "favicon.png" por otro nombre ni por una ruta distinta;
-  - no conviertas el ícono en una imagen embebida (data:image/...) en lugar del archivo. El respaldo embebido que ya existe va debajo y se deja como está;
-  - el archivo favicon.png no se renombra ni se reemplaza.
+  - las 3 líneas de ícono del <head> tienen que quedar EXACTAMENTE así, en este orden, y ser las únicas etiquetas de ícono:
+    `<link rel="icon" type="image/png" href="favicon.png">`
+    `<link rel="icon" href="favicon.ico" sizes="48x48">`
+    `<link rel="apple-touch-icon" href="favicon.png">`
+  - no las borres, no cambies los nombres de archivo ni las rutas;
+  - nunca agregues íconos embebidos (href="data:image/..."): Google no los acepta y puede elegirlos en lugar del archivo;
+  - los archivos favicon.png (192×192 px) y favicon.ico no se renombran ni se reemplazan. Google exige un tamaño múltiplo de 48 px.
 - El bloque <script type="application/ld+json"> con el nombre y el logo del sitio para Google.
 - Las funciones de JavaScript. Solo podés editar estos bloques de datos: EDICION, SUPERAVIT_2026, PRODUCCION_2026, FRACTURAS_2026, FRACTURAS_ACUMULADO, FRACTURAS_PROYECCION y TERMOMETRO.
 
@@ -35,7 +38,7 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
   - en Gas, Vaca Muerta + resto de Neuquén + resto del país tiene que dar el total nacional, y los % tienen que sumar 100;
   - un mismo dato tiene que tener el mismo valor en todos los lugares donde aparece (portada, tablas, resumen, gráficos, vista previa);
   - no pueden quedar textos de la semana anterior.
-  - el <head> sigue teniendo, como primera etiqueta de ícono, `<link rel="icon" type="image/png" href="favicon.png">`, sin cambios.
+  - el <head> sigue teniendo las 3 líneas de ícono de la sección 1, sin cambios y sin ningún ícono embebido (data:image).
 
 ## 4. Qué actualizar, sección por sección
 1. Fecha: cambiá SOLO `const EDICION = 'AAAA-MM-DD';`. Se completa sola en la barra superior, en "La semana", en el pie y en el link para compartir. Revisá también cualquier "enero–[mes]" o "[mes] 2026" de los textos.
