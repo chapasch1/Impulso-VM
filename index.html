@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Impulso VM · versión del sitio: 2026-10-16 (edición del viernes 16 de octubre) -->
+<!-- Impulso VM · versión del sitio: 2026-10-16b (producción: febrero, marzo y mayo; gráfico separado del eje) -->
 <html lang="es-AR">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -947,7 +947,7 @@ const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov'
 const SUPERAVIT_2026 = [618, 697, 1096, 1402, 1543, 611, 892, 977]; // USD millones
 
 const PRODUCCION_2026 = { // miles de barriles diarios
-  nacional:    [882.2, null, null, 891.7, null, null, 916, 926.9],
+  nacional:    [882.2, 874, 878, 891.7, 903.7, null, 916, 926.9],
   vacaMuerta:  [599.7, null, null, 616.4, null, null, 643.6, 671.6]
 };
 
@@ -1047,7 +1047,8 @@ function lineChart(host, series, labels){
   const iw = W - m.l - m.r, ih = H - m.t - m.b;
   const lo = 500, hi = 1000, step = 100;
   const n = labels.length;
-  const x = i => m.l + (iw / (n - 1)) * i;
+  const pad = 26; // separa el primer punto del eje Y
+  const x = i => m.l + pad + ((iw - pad) / (n - 1)) * i;
   const y = v => m.t + ih - ((v - lo) / (hi - lo)) * ih;
 
   for (let v = lo; v <= hi; v += step){
