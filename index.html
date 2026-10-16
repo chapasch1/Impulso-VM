@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Impulso VM · versión del sitio: 2026-10-16c (ediciones anteriores con dirección fija) -->
+<!-- Impulso VM · versión del sitio: 2026-10-16d (acceso a ediciones anteriores arriba y en el pie) -->
 <html lang="es-AR">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -101,6 +101,8 @@
   /* ---------- Cabecera ---------- */
   .dateline{border-bottom:1px solid var(--rule); font-size:12.5px; color:var(--ink-3);}
   .dateline .wrap{display:flex; justify-content:space-between; gap:12px; padding-top:8px; padding-bottom:8px;}
+  .dateline .arch-link{color:var(--ink-2); text-decoration:none; font-weight:600;}
+  .dateline .arch-link:hover{color:var(--sand);}
   .dateline .live::before{content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--up); margin-right:7px; vertical-align:1px;}
 
   .masthead{padding:26px 0 18px; text-align:center;}
@@ -427,6 +429,7 @@
 <div class="dateline">
   <div class="wrap">
     <span class="live">Edición del <span data-fecha="larga">viernes 16 de octubre de 2026</span></span>
+    <a class="arch-link" href="#archivo">Ediciones anteriores →</a>
   </div>
 </div>
 
@@ -450,7 +453,6 @@
       <li><a href="#infraestructura">Infraestructura</a></li>
       <li><a href="#noticias">La semana</a></li>
       <li><a href="#termometro">Termómetro</a></li>
-      <li><a href="#archivo">Ediciones anteriores</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
     <a class="cta" href="#suscripcion">Suscribirme</a>
@@ -960,6 +962,7 @@
     </div>
     <div class="legal">
       <span>© 2026 Impulso VM. Proyecto independiente.</span>
+      <a href="#archivo">Ediciones anteriores</a>
       <a href="#contenido">Volver arriba ↑</a>
     </div>
   </div>
