@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Impulso VM · versión del sitio: 2026-10-16b (producción: febrero, marzo y mayo; gráfico separado del eje) -->
+<!-- Impulso VM · versión del sitio: 2026-10-16c (ediciones anteriores con dirección fija) -->
 <html lang="es-AR">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -401,6 +401,24 @@
   .ring-cap{text-align:center; font-size:14px; color:var(--ink-2); margin:12px 0 0;}
   @media (prefers-reduced-motion: reduce){ .split i, .tile, .ring .arc{transition:none;} .js .split:not(.in) i{transform:none;} .js .tiles:not(.in) .tile{opacity:1; transform:none;} }
 
+  /* Ediciones anteriores */
+  .archive{display:grid; gap:10px;}
+  .archive details{background:var(--paper-2); border:1px solid var(--rule);}
+  .archive summary{cursor:pointer; list-style:none; padding:16px 20px; display:flex; align-items:center; font-family:var(--serif); font-size:20px; color:var(--ink);}
+  .archive summary::-webkit-details-marker{display:none;}
+  .archive summary span{margin-left:auto; font-size:13px; color:var(--ink-3); letter-spacing:.02em;}
+  .archive summary::after{content:"+"; font-size:22px; color:var(--sand); margin-left:14px;}
+  .archive details[open] summary::after{content:"−";}
+  .archive ul{list-style:none; margin:0; padding:0 20px 14px;}
+  .archive li{border-top:1px solid var(--rule);}
+  .archive li a{display:flex; gap:16px; align-items:baseline; padding:12px 0; color:var(--ink); text-decoration:none;}
+  .archive li a:hover b{color:var(--sand);}
+  .archive li time{flex:none; width:170px; font-size:13px; color:var(--ink-3);}
+  .archive li b{font-weight:500; line-height:1.4; transition:color .15s;}
+  .archive .empty{color:var(--ink-3); margin:0;}
+  @media (max-width:520px){ .archive li a{flex-direction:column; gap:4px;} .archive li time{width:auto;} }
+  .old-banner{background:var(--flare); color:var(--ink); text-align:center; padding:10px 16px; font-size:14.5px;}
+  .old-banner a{color:var(--ink); font-weight:600;}
 </style>
 </head>
 <body>
@@ -432,6 +450,7 @@
       <li><a href="#infraestructura">Infraestructura</a></li>
       <li><a href="#noticias">La semana</a></li>
       <li><a href="#termometro">Termómetro</a></li>
+      <li><a href="#archivo">Ediciones anteriores</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
     <a class="cta" href="#suscripcion">Suscribirme</a>
@@ -885,6 +904,16 @@
     </div>
   </section>
 
+  <!-- EDICIONES ANTERIORES -->
+  <section class="block" id="archivo">
+    <div class="sec-head">
+      <p class="kicker">Archivo</p>
+      <h2>Ediciones anteriores</h2>
+      <p>Cada edición queda publicada con su fecha y no cambia más. Elegí el mes y abrí la que quieras.</p>
+    </div>
+    <div class="archive" id="archivoLista"></div>
+  </section>
+
   <!-- SUSCRIPCIÓN -->
   <section class="block" id="suscripcion" style="border-bottom:0;">
     <div class="subscribe">
@@ -954,6 +983,15 @@ const PRODUCCION_2026 = { // miles de barriles diarios
 /* Fecha de esta edición (AAAA-MM-DD). Se completa sola en la barra de arriba,
    en "La semana" y en el pie. Es lo único que hay que cambiar de la fecha. */
 const EDICION = '2026-10-16';
+
+/* Ediciones publicadas: [fecha, titular]. Cada viernes se agrega la nueva ARRIBA DE TODO.
+   Cada una tiene su copia fija en /ediciones/AAAA-MM-DD.html. */
+const EDICIONES = [
+  ['2026-10-16', 'YPF habilitó en La Angostura Sur la planta que llevará el Hub Sur a 100.000 barriles diarios'],
+  ['2026-10-09', 'El RIGI suma un nuevo proyecto en Vaca Muerta: Pluspetrol y GyP invertirán USD 12.240 millones'],
+  ['2026-10-02', 'Argentina LNG ya tiene fecha: la decisión final de inversión se firma el 26 de noviembre'],
+  ['2026-09-30', 'Argentina LNG se pone noviembre como meta para firmar su decisión de inversión'],
+];
 
 /* Etapas de fractura por mes (relevamiento de Luciano Fucello).
    Usá null para los meses sin dato todavía. */
@@ -1094,6 +1132,38 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 drawCharts();
 drawTermometro();
 
+/* Ediciones anteriores: se agrupan por mes. En una edición vieja se muestra un aviso arriba. */
+(function(){
+  const MES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const DIA = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const larga = iso => { const d = new Date(iso + 'T12:00:00'); return `${DIA[d.getDay()]} ${d.getDate()} de ${MES[d.getMonth()]}`; };
+  const host = document.getElementById('archivoLista');
+  const previas = EDICIONES.filter(e => e[0] < EDICION);
+  if (!previas.length){ host.innerHTML = '<p class="empty">Todavía no hay ediciones anteriores.</p>'; }
+  const meses = [];
+  previas.forEach(([f, t]) => {
+    const k = f.slice(0, 7);
+    let g = meses.find(m => m.k === k);
+    if (!g){ g = {k, items: []}; meses.push(g); }
+    g.items.push([f, t]);
+  });
+  meses.forEach((g, i) => {
+    const [a, m] = g.k.split('-').map(Number);
+    const det = document.createElement('details');
+    if (i === 0) det.open = true;
+    const n = g.items.length;
+    det.innerHTML = `<summary>${MES[m - 1].charAt(0).toUpperCase() + MES[m - 1].slice(1)} ${a} <span>${n} ${n === 1 ? 'edición' : 'ediciones'}</span></summary><ul>` +
+      g.items.map(([f, t]) => `<li><a href="/ediciones/${f}.html"><time datetime="${f}">${larga(f)}</time><b>${t}</b></a></li>`).join('') + '</ul>';
+    host.appendChild(det);
+  });
+  if (location.pathname.indexOf('/ediciones/') !== -1){
+    const b = document.createElement('div');
+    b.className = 'old-banner';
+    b.innerHTML = `Estás viendo la edición del ${larga(EDICION)}. <a href="/">Ver la edición actual →</a>`;
+    document.body.insertBefore(b, document.body.firstChild);
+  }
+})();
+
 /* Fecha de la edición: se escribe una sola vez (EDICION) */
 (function(){
   const d = new Date(EDICION + 'T12:00:00');
@@ -1146,7 +1216,7 @@ drawRing(false);
 
 /* Compartir: cada edición se comparte con su propio link (?ed=fecha), así LinkedIn
    y WhatsApp arman la vista previa nueva en vez de reutilizar la de otra semana */
-const LINK_EDICION = 'https://impulsovm.com.ar/?ed=' + EDICION;
+const LINK_EDICION = 'https://impulsovm.com.ar/ediciones/' + EDICION + '.html';
 (function(){
   const titular = document.querySelector('.lead-story h1').textContent.trim();
   document.querySelectorAll('.sh-wa').forEach(a => a.href = 'https://wa.me/?text=' + encodeURIComponent(titular + ' · Impulso VM ' + LINK_EDICION));

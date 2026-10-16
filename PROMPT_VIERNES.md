@@ -15,7 +15,8 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
   - nunca agregues íconos embebidos (href="data:image/..."): Google no los acepta y puede elegirlos en lugar del archivo;
   - los archivos favicon.png (192×192 px) y favicon.ico no se renombran ni se reemplazan. Google exige un tamaño múltiplo de 48 px.
 - El bloque <script type="application/ld+json"> con el nombre y el logo del sitio para Google.
-- Las funciones de JavaScript. Solo podés editar estos bloques de datos: EDICION, SUPERAVIT_2026, PRODUCCION_2026, FRACTURAS_2026, FRACTURAS_ACUMULADO, FRACTURAS_PROYECCION y TERMOMETRO.
+- La sección "Ediciones anteriores" ni la línea `const LINK_EDICION`, que hace que cada edición se comparta con su dirección fija.
+- Las funciones de JavaScript. Solo podés editar estos bloques de datos: EDICION, EDICIONES, SUPERAVIT_2026, PRODUCCION_2026, FRACTURAS_2026, FRACTURAS_ACUMULADO, FRACTURAS_PROYECCION y TERMOMETRO.
 
 ## 2. Reglas de verificación (lo más importante)
 - Cada número, porcentaje y fecha que publiques tiene que coincidir en al menos 3 fuentes independientes.
@@ -39,6 +40,8 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
   - un mismo dato tiene que tener el mismo valor en todos los lugares donde aparece (portada, tablas, resumen, gráficos, vista previa);
   - no pueden quedar textos de la semana anterior.
   - el <head> sigue teniendo las 3 líneas de ícono de la sección 1, sin cambios y sin ningún ícono embebido (data:image).
+  - la edición nueva está primera en EDICIONES, con la misma fecha que EDICION y el mismo titular que el h1;
+  - la copia de ediciones/ es idéntica al index.html salvo las 4 diferencias del punto 6.
 
 ## 4. Qué actualizar, sección por sección
 1. Fecha: cambiá SOLO `const EDICION = 'AAAA-MM-DD';`. Se completa sola en la barra superior, en "La semana", en el pie y en el link para compartir. Revisá también cualquier "enero–[mes]" o "[mes] 2026" de los textos.
@@ -83,6 +86,8 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
    - "La lectura": 2 o 3 oraciones que conecten los números con Vaca Muerta;
    - "Lo que viene": 3 o 4 temas para seguir, con su momento aproximado. No pongas fechas exactas que no estén confirmadas oficialmente.
 
+14. Ediciones anteriores: agregá la edición nueva ARRIBA DE TODO en `const EDICIONES`, con su fecha (AAAA-MM-DD, igual que EDICION) y el titular del h1. No borres ni cambies las anteriores.
+
 ## 5. Estilo
 - Español rioplatense, tono periodístico y sobrio, como un diario económico.
 - Titulares que informen un hecho concreto, sin adjetivos exagerados ("histórico", "impresionante", "clave") salvo que sea literalmente un récord.
@@ -90,6 +95,11 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
 - Números con formato argentino en los textos (1.234,5). En los bloques de JavaScript van con punto decimal (930.5) y sin separador de miles (19230).
 
 ## 6. Qué me tenés que entregar
-1. El index.html completo y actualizado, como archivo descargable (es muy largo para pegarlo en el chat). Es el único archivo: no hay que entregar ni subir ningún otro. El sitio muestra solo la edición del día; no se guardan ediciones anteriores.
+1. Dos archivos descargables (son muy largos para pegarlos en el chat):
+   - `index.html`, completo y actualizado: es la portada del sitio.
+   - `ediciones/AAAA-MM-DD.html` (con la fecha de EDICION): la copia fija de esta edición, que es la dirección que se comparte en LinkedIn y nunca cambia. Es el mismo index.html con 4 diferencias:
+     - `<link rel="canonical" href="https://impulsovm.com.ar/ediciones/AAAA-MM-DD.html">`;
+     - en las 3 líneas de ícono, las rutas empiezan con barra: `href="/favicon.png"`, `href="/favicon.ico"`, `href="/favicon.png"`.
+   - No toques los archivos de ediciones anteriores: quedan como están.
 2. Una tabla de cambios con estas columnas: Sección | Dato | Valor anterior | Valor nuevo | Fuente 1 | Fuente 2 | Fuente 3 (con links) | Estado (Verificado / Sin cambios / No verificado).
 3. Una lista corta de lo que no pudiste confirmar, de las cuentas que no cerraron o de las fuentes que no coincidían, para que yo lo revise antes de publicar.
