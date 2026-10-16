@@ -122,6 +122,23 @@ function olvidarUltimaEdicion() {
   Logger.log('Listo: la próxima revisión va a tratar la edición del sitio como nueva.');
 }
 
+/* Sube UNA sola vez las ediciones anteriores al script, tomadas del historial de GitHub.
+   No manda mails. Si una ya está en la carpeta, la saltea. */
+function guardarEdicionesAnteriores() {
+  const BASE = 'https://raw.githubusercontent.com/chapasch1/Impulso-VM/';
+  const ANTERIORES = [
+    ['2026-09-30', '72f26b120f7643b2fa0a374375739a840a28d74a'],
+    ['2026-10-02', '701e265c7ec2543d534d23100954f70bbb23a8cb'],
+    ['2026-10-09', '62f67b0239f32b4486d1dc2c22e4c17f8d608e52'],
+    ['2026-10-15', 'fb8167ebdf1439ae81fb6fd970865e09a5488bd3'],
+  ];
+  ANTERIORES.forEach(([edicion, version]) => {
+    const r = UrlFetchApp.fetch(BASE + version + '/index.html', {muteHttpExceptions: true});
+    if (r.getResponseCode() !== 200) { Logger.log('No pude bajar la edición del ' + edicion + '.'); return; }
+    guardarEnDrive(edicion, r.getContentText('UTF-8'));
+  });
+}
+
 /* ---------- ayudas ---------- */
 function extraer(html, re) {
   const m = html.match(re);
