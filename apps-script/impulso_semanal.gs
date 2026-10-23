@@ -1,7 +1,7 @@
 /*
   Impulso VM · Envío semanal automático
   -------------------------------------
-  Qué hace, todos los viernes a las 8 h:
+  Qué hace, todos los viernes a las 7 h:
     1. Mira el sitio y lee la fecha de la edición (const EDICION).
     2. Si es una edición nueva:
        - guarda una copia del HTML en la carpeta "Ediciones" de Drive, con la fecha como nombre;
@@ -100,12 +100,12 @@ function avisarPorMail(edicion, html) {
   });
 }
 
-/* Instala el disparador: revisa el sitio los viernes a las 8 h. Correla UNA sola vez.
-   Google lo ejecuta en algún momento entre las 8 y las 9. */
+/* Instala el disparador: revisa el sitio los viernes a las 7 h. Correla UNA sola vez.
+   Google lo ejecuta en algún momento entre las 7 y las 8. */
 function instalarDisparador() {
   ScriptApp.getProjectTriggers().forEach(t => ScriptApp.deleteTrigger(t));
-  ScriptApp.newTrigger('revisarEdicion').timeBased().onWeekDay(ScriptApp.WeekDay.FRIDAY).atHour(8).create();
-  Logger.log('Listo: el script va a revisar el sitio todos los viernes a las 8 h.');
+  ScriptApp.newTrigger('revisarEdicion').timeBased().onWeekDay(ScriptApp.WeekDay.FRIDAY).atHour(7).create();
+  Logger.log('Listo: el script va a revisar el sitio todos los viernes a las 7 h.');
 }
 
 /* Marca la edición que hoy está en el sitio como ya enviada, sin mandar mails.
