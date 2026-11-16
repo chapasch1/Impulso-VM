@@ -41,7 +41,7 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
   - no pueden quedar textos de la semana anterior.
   - el <head> sigue teniendo las 3 líneas de ícono de la sección 1, sin cambios y sin ningún ícono embebido (data:image).
   - la edición nueva está primera en EDICIONES, con la misma fecha que EDICION y el mismo titular que el h1;
-  - la copia de ediciones/ es idéntica al index.html salvo las 4 diferencias del punto 6.
+  - la copia de ediciones/ es idéntica al index.html salvo las 5 diferencias del punto 6. Abrí el archivo y fijate que empiece con `<!DOCTYPE html>` y termine con `</html>`, sin nada antes ni después.
 
 ## 4. Qué actualizar, sección por sección
 1. Fecha: cambiá SOLO `const EDICION = 'AAAA-MM-DD';`. Se completa sola en la barra superior, en "La semana", en el pie y en el link para compartir. Revisá también cualquier "enero–[mes]" o "[mes] 2026" de los textos.
@@ -97,8 +97,9 @@ Te adjunto el index.html de Impulso VM, un sitio semanal sobre Vaca Muerta. Tu t
 ## 6. Qué me tenés que entregar
 1. Dos archivos descargables (son muy largos para pegarlos en el chat):
    - `index.html`, completo y actualizado: es la portada del sitio.
-   - `ediciones/AAAA-MM-DD.html` (con la fecha de EDICION): la copia fija de esta edición, que es la dirección que se comparte en LinkedIn y nunca cambia. Es el mismo index.html con 4 diferencias:
+   - `ediciones/AAAA-MM-DD.html` (con la fecha de EDICION): la copia fija de esta edición, que es la dirección que se comparte en LinkedIn y nunca cambia. Es el mismo index.html con 5 diferencias:
      - `<link rel="canonical" href="https://impulsovm.com.ar/ediciones/AAAA-MM-DD.html">`;
+     - `<meta property="og:url" content="https://impulsovm.com.ar/ediciones/AAAA-MM-DD.html">` (en el index va `https://impulsovm.com.ar/`);
      - en las 3 líneas de ícono, las rutas empiezan con barra: `href="/favicon.png"`, `href="/favicon.ico"`, `href="/favicon.png"`.
    - No toques los archivos de ediciones anteriores: quedan como están.
 2. Una tabla de cambios con estas columnas: Sección | Dato | Valor anterior | Valor nuevo | Fuente 1 | Fuente 2 | Fuente 3 (con links) | Estado (Verificado / Sin cambios / No verificado).
